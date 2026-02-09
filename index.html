@@ -1,104 +1,301 @@
-<!DOCTYPE html><html lang="hi">
+<!doctype html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>हिंदी परियोजना पोर्टफोलियो</title>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --accent:#7a1f3d;
+      --muted:#4a1c2f;
+      --glass: rgba(255,255,255,0.80);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
     body{
-      font-family:'Hind','Poppins',sans-serif;
-      background:linear-gradient(135deg,#fff1f4,#ffe4ec);
-      color:#4a1c2f;
+      font-family:"Hind","Poppins",system-ui,Segoe UI,Arial;
+      background: linear-gradient(135deg,#fff1f4,#ffe4ec);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
       scroll-behavior:smooth;
     }
+
+    /* NAV */
     nav{
-      position:fixed;top:0;width:100%;z-index:100;
-      background:rgba(255,255,255,0.6);
-      backdrop-filter:blur(10px);
-      display:flex;justify-content:center;gap:20px;
-      padding:12px;font-weight:600;
+      position:fixed;top:0;left:0;right:0;
+      display:flex;justify-content:center;gap:18px;
+      padding:12px 18px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      z-index:999;
+      border-bottom: 1px solid rgba(122,31,61,0.06);
     }
-    nav a{text-decoration:none;color:#7a1f3d}
-    section{min-height:100vh;padding:90px 10%}
+    nav a{ color:var(--accent); text-decoration:none; font-weight:600; padding:6px 8px; border-radius:8px }
+    nav a:hover{ background: rgba(122,31,61,0.06) }
+
+    /* Sections */
+    section{ padding:88px 6% 60px } /* top padding leaves room for fixed nav */
     h1,h2{text-align:center}
-    h1{font-size:3rem}
-    h2{font-size:2.2rem;margin-bottom:20px}
+    h1{font-size:2.6rem;margin-bottom:6px}
+    h2{font-size:1.9rem;margin-bottom:14px;color:var(--accent)}
+
     .card{
-      background:rgba(255,255,255,0.75);
-      border-radius:20px;
-      padding:30px;
-      max-width:900px;
-      margin:20px auto;
-      box-shadow:0 20px 40px rgba(0,0,0,0.1)
+      background:var(--glass);
+      border-radius:14px;
+      padding:26px;
+      max-width:1100px;
+      margin:16px auto;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
     }
+
+    /* Hero */
     .hero{
       display:flex;align-items:center;justify-content:center;text-align:center;
-      background:linear-gradient(135deg,#ff9a9e,#fad0c4)
+      padding:60px 18px; border-radius:14px;
+      background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+      box-shadow: 0 20px 50px rgba(122,31,61,0.06);
+      max-width:1100px;
+      margin:18px auto;
     }
-    .hero p{font-size:1.2rem;margin-top:10px}
+    .hero .meta{ margin-top:10px; font-size:1.05rem }
+
+    /* Index list */
+    ol{ padding-left:1.2rem }
+    li{ margin:10px 0; font-weight:500 }
+
+    /* Gallery */
     .gallery{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;margin-top:20px
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap:16px;
+      margin-top:10px;
+      align-items:start;
     }
-    .gallery img{
-      width:100%;border-radius:16px;
-      box-shadow:0 12px 25px rgba(0,0,0,0.15)
+    .thumb{
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      background: #fff;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+      cursor:pointer;
+      transition: transform .28s ease, box-shadow .28s ease;
     }
-    footer{
-      background:#ffd6e0;text-align:center;padding:20px;font-weight:600
+    .thumb img{
+      display:block; width:100%; height:160px; object-fit:cover; transition: transform .45s cubic-bezier(.2,.9,.3,1);
+    }
+    .thumb:hover{ transform: translateY(-6px) }
+    .thumb:hover img{ transform: scale(1.06) }
+
+    .caption{
+      position:absolute; left:10px; bottom:10px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.5), rgba(0,0,0,0.2));
+      color:#fff; padding:6px 10px; border-radius:10px; font-weight:600; font-size:0.95rem; backdrop-filter: blur(4px);
+    }
+
+    /* Lightbox modal */
+    .lightbox {
+      position: fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background: rgba(0,0,0,0.75); z-index:2000;
+    }
+    .lightbox.open{ display:flex }
+    .lightbox img{
+      max-width:92%; max-height:86%; border-radius:10px; box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    }
+    .lightbox .meta{
+      margin-top:10px; color:#fff; text-align:center;
+    }
+
+    /* footer */
+    footer{ text-align:center; padding:20px 6%; background: linear-gradient(180deg,#fff5f7,#ffeef3); font-weight:600 }
+
+    /* responsive tweaks */
+    @media (max-width:720px){
+      .hero{ padding:36px 12px }
+      .thumb img{ height:130px }
+      section{ padding:80px 4% 40px }
+      h1{ font-size:1.8rem }
     }
   </style>
 </head>
-<body><nav>
-  <a href="#cover">मुखपृष्ठ</a>
-  <a href="#index">अनुक्रमणिका</a>
-  <a href="#premchand">लेखक परिचय</a>
-  <a href="#gallery">चित्र</a>
-</nav><section id="cover" class="hero">
-  <div>
-    <h1>हिंदी परियोजना</h1>
-    <p>विद्यालय परियोजना पोर्टफोलियो</p>
-    <br>
-    <p>
-      नाम: ___________<br>
-      कक्षा: ___________<br>
-      रोल नं.: ___________
-    </p>
-  </div>
-</section><section id="index">
-  <h2>अनुक्रमणिका</h2>
-  <div class="card">
-    <ol>
-      <li>परियोजना का परिचय</li>
-      <li>हिंदी भाषा का महत्व</li>
-      <li>लेखक परिचय – मुंशी प्रेमचंद</li>
-      <li>निष्कर्ष</li>
-    </ol>
-  </div>
-</section><section id="premchand">
-  <h2>लेखक परिचय – मुंशी प्रेमचंद</h2>
-  <div class="card">
-    <p><strong>जन्म:</strong> 31 जुलाई 1880</p>
-    <p><strong>जन्म स्थान:</strong> लमही, वाराणसी</p>
-    <p><strong>प्रसिद्ध कृतियाँ:</strong> गोदान, गबन, कर्मभूमि, निर्मला</p>
-    <p style="margin-top:15px">
-      मुंशी प्रेमचंद हिंदी साहित्य के महान लेखक थे। उनकी रचनाओं में समाज की सच्चाई,
-      गरीबों का जीवन और मानवीय संवेदनाएँ स्पष्ट रूप से दिखाई देती हैं।
-    </p>
-  </div>
-</section><section id="gallery">
-  <h2>चित्र दीर्घा</h2>
-  <div class="card">
-    <div class="gallery">
-      <img src="images/image1.jpg" alt="Project Cover">
-      <img src="images/image2.jpg" alt="Index Page">
-      <img src="images/image3.jpg" alt="Notebook Page">
-      <img src="images/image4.jpg" alt="Premchand">
+<body>
+
+  <nav>
+    <a href="#cover">मुखपृष्ठ</a>
+    <a href="#index">अनुक्रमणिका</a>
+    <a href="#premchand">लेखक परिचय</a>
+    <a href="#gallery">चित्र</a>
+  </nav>
+
+  <section id="cover">
+    <div class="hero">
+      <div>
+        <h1>हिंदी परियोजना पोर्टफोलियो</h1>
+        <p class="meta">विद्यालय परियोजना — अपने अध्यापक को impress करने के लिए तैयार</p>
+        <p style="margin-top:12px">
+          नाम: <strong>________________</strong><br>
+          कक्षा: <strong>________________</strong><br>
+          रोल नं.: <strong>________________</strong>
+        </p>
+      </div>
     </div>
-    <p style="text-align:center;margin-top:15px">(यहाँ अपनी परियोजना से संबंधित चित्र जोड़ें)</p>
+  </section>
+
+  <section id="index">
+    <h2>अनुक्रमणिका</h2>
+    <div class="card">
+      <ol>
+        <li>परियोजना का परिचय</li>
+        <li>हिंदी भाषा का महत्व</li>
+        <li>लेखक परिचय – मुंशी प्रेमचंद</li>
+        <li>सांस्कृतिक और सामाजिक विषय</li>
+        <li>निष्कर्ष</li>
+        <li>चित्र दीर्घा (Project photos)</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="premchand">
+    <h2>लेखक परिचय – मुंशी प्रेमचंद</h2>
+    <div class="card">
+      <p><strong>जन्म:</strong> 31 जुलाई 1880</p>
+      <p><strong>जन्म स्थान:</strong> लमही, वाराणसी</p>
+      <p><strong>प्रसिद्ध कृतियाँ:</strong> गोदान, गबन, करमभूमि, निर्मला</p>
+      <p style="margin-top:12px">
+        मुंशी प्रेमचंद हिंदी साहित्य के महान व्यंग्य और सामाजिक-यथार्थ लेखक थे। उनकी कहानियाँ और उपन्यास ग्रामीण भारत,
+        गरीबों और सामाजिक अन्याय पर गहरी टिप्पणी करते हैं।
+      </p>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2>चित्र दीर्घा</h2>
+    <div class="card">
+      <div class="gallery">
+        <!-- Replace these src files with your actual images (image1.jpg ... image13.jpg) inside images/ folder -->
+        <div class="thumb" data-src="images/image1.jpg" data-caption="मुखपृष्ठ / Cover">
+          <img src="images/image1.jpg" alt="Image 1">
+          <div class="caption">मुखपृष्ठ</div>
+        </div>
+
+        <div class="thumb" data-src="images/image2.jpg" data-caption="परिचय / Introduction">
+          <img src="images/image2.jpg" alt="Image 2">
+          <div class="caption">परिचय</div>
+        </div>
+
+        <div class="thumb" data-src="images/image3.jpg" data-caption="अनुक्रमणिका / Index">
+          <img src="images/image3.jpg" alt="Image 3">
+          <div class="caption">अनुक्रमणिका</div>
+        </div>
+
+        <div class="thumb" data-src="images/image4.jpg" data-caption="लेखक परिचय / Premchand">
+          <img src="images/image4.jpg" alt="Image 4">
+          <div class="caption">लेखक परिचय</div>
+        </div>
+
+        <div class="thumb" data-src="images/image5.jpg" data-caption="सांस्कृतिक पृष्ठ">
+          <img src="images/image5.jpg" alt="Image 5">
+          <div class="caption">सांस्कृतिक पृष्ठ</div>
+        </div>
+
+        <div class="thumb" data-src="images/image6.jpg" data-caption="सामाजिक व्यवस्था">
+          <img src="images/image6.jpg" alt="Image 6">
+          <div class="caption">सामाजिक व्यवस्था</div>
+        </div>
+
+        <div class="thumb" data-src="images/image7.jpg" data-caption="निबंध / Essay">
+          <img src="images/image7.jpg" alt="Image 7">
+          <div class="caption">निबंध</div>
+        </div>
+
+        <div class="thumb" data-src="images/image8.jpg" data-caption="लेखक पृष्ठ">
+          <img src="images/image8.jpg" alt="Image 8">
+          <div class="caption">लेखक पृष्ठ</div>
+        </div>
+
+        <div class="thumb" data-src="images/image9.jpg" data-caption="फूल और कला">
+          <img src="images/image9.jpg" alt="Image 9">
+          <div class="caption">फूल और कला</div>
+        </div>
+
+        <div class="thumb" data-src="images/image10.jpg" data-caption="आभास / अनुभव">
+          <img src="images/image10.jpg" alt="Image 10">
+          <div class="caption">आभास</div>
+        </div>
+
+        <div class="thumb" data-src="images/image11.jpg" data-caption="प्रमाण पत्र या समापन पृष्ठ">
+          <img src="images/image11.jpg" alt="Image 11">
+          <div class="caption">समापन</div>
+        </div>
+
+        <div class="thumb" data-src="images/image12.jpg" data-caption="टिप्पणियाँ">
+          <img src="images/image12.jpg" alt="Image 12">
+          <div class="caption">टिप्पणियाँ</div>
+        </div>
+
+        <div class="thumb" data-src="images/image13.jpg" data-caption="अन्य पृष्ठ">
+          <img src="images/image13.jpg" alt="Image 13">
+          <div class="caption">अन्य</div>
+        </div>
+      </div>
+
+      <p style="text-align:center;margin-top:14px;color:#57414a;font-weight:600">
+        (ऊपर दी गई सभी images/ फ़ोल्डर से लोड होंगी — image1.jpg से image13.jpg तक)
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    हिंदी परियोजना पोर्टफोलियो © School Project
+  </footer>
+
+  <!-- Lightbox JS (simple, no external libs) -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" tabindex="-1">
+    <div id="lb-content" style="text-align:center">
+      <img id="lb-image" src="" alt="">
+      <div id="lb-caption" class="meta" style="font-size:0.98rem"></div>
+    </div>
   </div>
-</section><footer>
-  हिंदी परियोजना पोर्टफोलियो © School Project
-</footer></body>
+
+  <script>
+    // Open lightbox on thumb click
+    const thumbs = document.querySelectorAll('.thumb');
+    const lightbox = document.getElementById('lightbox');
+    const lbImage = document.getElementById('lb-image');
+    const lbCaption = document.getElementById('lb-caption');
+
+    thumbs.forEach(t => {
+      t.addEventListener('click', () => {
+        const src = t.getAttribute('data-src') || t.querySelector('img').src;
+        const caption = t.getAttribute('data-caption') || t.querySelector('.caption')?.innerText || '';
+        lbImage.src = src;
+        lbImage.alt = caption || 'Project image';
+        lbCaption.textContent = caption;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        // trap focus if you want (simple)
+      });
+    });
+
+    // Close on background click or ESC
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLB();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLB();
+    });
+
+    function closeLB(){
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden','true');
+      lbImage.src = '';
+      lbCaption.textContent = '';
+    }
+  </script>
+</body>
 </html>
