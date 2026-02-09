@@ -1,0 +1,391 @@
+<!doctype html>
+
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>मेरी हिंदी परियोजना — World's Best Portfolio (Single File)</title>  <!-- Google Fonts -->  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">  <style>
+    :root{
+      --accent:#7a1f3d; --accent-2:#b33b56; --bg-1:#fff6f8; --bg-2:#fff0f3; --glass: rgba(255,255,255,0.88);
+      --muted:#4a1c2f; --shadow: 0 18px 45px rgba(122,31,61,0.08); --radius:14px; --maxw:1200px; --success:#2a9d8f;
+      --glass-border: rgba(122,31,61,0.06);
+    }
+    [data-theme="dark"]{ --bg-1:#0f0b0d; --bg-2:#140912; --glass: rgba(255,255,255,0.03); --muted:#f3d6db; --accent:#ff9bb2; --accent-2:#ff6f97; --shadow:0 20px 60px rgba(0,0,0,0.6); --glass-border: rgba(255,255,255,0.05); }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:'Poppins', 'Hind', system-ui, Arial; background:linear-gradient(135deg,var(--bg-1),var(--bg-2)); color:var(--muted); -webkit-font-smoothing:antialiased; line-height:1.45; scroll-behavior:smooth;}
+
+    /* Top navigation */
+    header{position:fixed;inset:12px auto auto 12px;right:12px;display:flex;gap:10px;align-items:center;z-index:999}
+    nav{display:flex;gap:8px;align-items:center;background:var(--glass);padding:8px;border-radius:999px;backdrop-filter:blur(8px);border:1px solid var(--glass-border);box-shadow:var(--shadow)}
+    nav a{padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:600}
+    nav a:hover{color:var(--accent)}
+
+    .controls{display:flex;gap:6px;align-items:center}
+    .btn{border:0;background:transparent;padding:8px;border-radius:8px;cursor:pointer;font-weight:700}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
+
+    /* container */
+    .container{max-width:var(--maxw);margin:96px auto;padding:18px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:18px;align-items:center}
+    .card{background:var(--glass);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
+    .title{font-size:2.4rem;font-weight:800;color:var(--accent);letter-spacing:0.6px}
+    .subtitle{margin-top:8px;color:var(--muted);font-weight:600}
+    .meta{margin-top:12px}
+
+    /* animated flourish */
+    .tagline{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(122,31,61,0.08), rgba(179,59,86,0.06));margin-top:8px;font-weight:700}
+
+    /* profile */
+    .profile{display:flex;flex-direction:column;align-items:center;gap:10px}
+    .avatar{width:140px;height:140px;border-radius:18px;background:linear-gradient(180deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:white;font-weight:800;font-size:1.8rem;box-shadow:0 12px 40px rgba(122,31,61,0.14)}
+    .small{font-size:0.95rem;color:var(--muted)}
+
+    /* fancy cover */
+    .cover{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+    .cover .big{font-size:3.2rem;font-weight:900;line-height:1}
+    .cover .sub{font-size:1.05rem;color:var(--muted)}
+
+    /* sections */
+    section{margin-top:18px}
+    h2{color:var(--accent);margin-bottom:10px;text-align:center}
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .proj{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.9),transparent);border:1px solid rgba(122,31,61,0.04);transition:transform .25s ease}
+    .proj:hover{transform:translateY(-6px)}
+    .proj h3{margin-bottom:8px}
+    .proj p{font-size:0.95rem;color:var(--muted)}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .tag{background:rgba(122,31,61,0.08);padding:6px 8px;border-radius:999px;font-weight:700}
+
+    /* Achievements / highlights */
+    .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+    .highlight{padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));border:1px solid rgba(122,31,61,0.03)}
+
+    /* Skills */
+    .skills{display:flex;gap:12px;flex-wrap:wrap}
+    .skill{flex:1;min-width:160px}
+    .bar{height:12px;border-radius:99px;background:rgba(0,0,0,0.06);overflow:hidden}
+    .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .9s cubic-bezier(.2,.9,.3,1)}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .thumb{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;background:#fff;border:1px solid rgba(0,0,0,0.04);min-height:100px;display:flex;align-items:center;justify-content:center}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .thumb .cap{position:absolute;left:8px;bottom:8px;background:linear-gradient(90deg,rgba(0,0,0,0.5),transparent);color:white;padding:6px;border-radius:8px;font-weight:600}
+    .thumb .slotnum{position:absolute;right:8px;top:8px;background:rgba(0,0,0,0.25);color:white;padding:4px 8px;border-radius:8px;font-weight:700;font-size:0.85rem}
+
+    /* lightbox */
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);z-index:2000}
+    .lightbox.open{display:flex}
+    .viewer{max-width:92%;max-height:86%;border-radius:12px;overflow:hidden}
+    .viewer img{max-width:100%;max-height:78vh;display:block}
+
+    /* timeline */
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .step{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.9),transparent);border:1px solid rgba(122,31,61,0.04)}
+
+    /* contact */
+    .contact{display:grid;grid-template-columns:1fr 320px;gap:12px}
+    .form input,.form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
+
+    footer{text-align:center;padding:18px;margin-top:18px;color:var(--muted)}
+
+    /* small screens */
+    @media (max-width:1100px){.gallery{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr}.contact{grid-template-columns:1fr}.cover .big{font-size:2.2rem}}
+    @media (max-width:720px){.gallery{grid-template-columns:repeat(2,1fr)}.thumb{min-height:90px}.avatar{width:110px;height:110px}}
+
+    /* print */
+    @media print{header, .btn, .controls, .lightbox{display:none} body{background:white} .card{box-shadow:none;border:0}}
+
+    /* subtle entrance */
+    .reveal{opacity:0;transform:translateY(18px);transition:all .65s cubic-bezier(.2,.9,.3,1)}
+    .reveal.in{opacity:1;transform:none}
+
+    /* floating decor */
+    .float-decor{position:absolute;right:8%;top:6%;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent);opacity:0.9;filter:blur(12px);pointer-events:none}
+  </style></head>
+<body>  <!-- Top controls (fixed) -->  <header>
+    <nav role="navigation" aria-label="मुख्य नेविगेशन">
+      <a href="#cover">मुखपृष्ठ</a>
+      <a href="#projects">प्रोजेक्ट</a>
+      <a href="#gallery">चित्र</a>
+      <a href="#contact">संपर्क</a>
+    </nav>
+    <div class="controls">
+      <button id="themeBtn" class="btn" title="थीम बदलें">🌓</button>
+      <button id="editBtn" class="btn primary" title="अपना विवरण भरें">मेरी जानकारी अपडेट करें</button>
+      <button id="certBtn" class="btn" title="प्रमाण पत्र बनाएँ">🏅 प्रमाण पत्र</button>
+    </div>
+  </header>  <div class="float-decor" aria-hidden="true"></div>  <main class="container" id="cover">
+    <!-- HERO / COVER -->
+    <section class="hero reveal">
+      <div class="card cover">
+        <div class="big">मेरी हिंदी परियोजना</div>
+        <div class="sub">एक संक्षिप्त और सुंदर प्रस्तुति — मैंने स्वयं बनाया है।</div>
+        <div class="tagline">Student POV • Creative • Printed-ready</div><div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+      <button id="printBtn" class="btn primary">प्रिंट / PDF</button>
+      <button id="downloadResume" class="btn">Resume डाउनलोड</button>
+      <button id="shareBtn" class="btn">स्टेट सेव करें</button>
+    </div>
+
+    <div class="meta" style="margin-top:18px">नाम: <strong id="sName">____</strong> • कक्षा: <strong id="sClass">____</strong> • रोल: <strong id="sRoll">____</strong></div>
+
+    <p style="margin-top:12px;color:var(--muted)">यह पोर्टफोलियो खासतौर पर विद्यार्थियों के लिए बनाया गया है — स्क्रीन पर दिखाने से लेकर प्रिंट/पीडीएफ में submit करने तक के लिये।</p>
+  </div>
+
+  <aside class="card profile">
+    <div class="avatar" id="avatar">मैं</div>
+    <div id="authorLabel" style="font-weight:800">मैं (अपना नाम भरें)</div>
+    <div class="small">स्टूडेंट • अपनी जानकारी अपडेट करें</div>
+
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <label class="btn" for="imgInput">📷 अवतार बदलें</label>
+      <input id="imgInput" type="file" accept="image/*" style="display:none">
+      <button id="resetBtn" class="btn">रीसेट</button>
+    </div>
+  </aside>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <h2>प्रोजेक्ट्स और अनुभाग</h2>
+  <div class="projects" id="projectsGrid">
+    <!-- JS populated -->
+  </div>
+  <div style="margin-top:14px;display:flex;gap:10px">
+    <button id="addProject" class="btn primary">नया प्रोजेक्ट जोड़ें</button>
+    <button id="clearProjects" class="btn">सारे प्रोजेक्ट हटाएँ</button>
+  </div>
+</section>
+
+<!-- Highlights / Achievements -->
+<section class="reveal">
+  <h2>हाइलाइट्स / मैंने क्या सीखा</h2>
+  <div class="card highlights" id="highlights">
+    <!-- JS populated -->
+  </div>
+</section>
+
+<!-- Skills / timeline -->
+<section class="reveal">
+  <h2>कौशल और समयरेखा (Timeline)</h2>
+  <div class="card" style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:1;min-width:260px">
+      <h3>कौशल</h3>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div style="flex:1;min-width:260px">
+      <h3>समयरेखा</h3>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY (13 slots) -->
+<section id="gallery" class="reveal">
+  <h2>चित्र दीर्घा — 13 स्लॉट्स</h2>
+  <div class="card">
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+      <label for="galleryInput" class="btn primary">अपनी फ़ोटो चुनें (अधिकतम 13)</label>
+      <input id="galleryInput" type="file" accept="image/*" multiple style="display:none">
+      <button id="clearGallery" class="btn">सभी हटाएँ</button>
+      <div style="margin-left:auto;color:var(--muted);font-weight:600">कुल स्लॉट: 13 — अपलोड करें या स्लॉट पर क्लिक कर के बदलें</div>
+    </div>
+
+    <div class="gallery" id="galleryGrid" aria-live="polite">
+      <!-- 13 thumbs inserted by JS -->
+    </div>
+
+    <p style="text-align:center;margin-top:12px;color:var(--muted);font-weight:600">टिप: हर स्लाइड में कैप्शन जोड़ें — प्रिंट में सुंदर दिखेगा।</p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="reveal">
+  <h2>संपर्क</h2>
+  <div class="card contact">
+    <div>
+      <p class="small">मुझे संदेश भेजें — यह लोकल demo है (सर्वर नहीं)।</p>
+      <form id="contactForm" class="form" onsubmit="return false">
+        <input id="cName" placeholder="आपका नाम" required>
+        <input id="cEmail" placeholder="ईमेल (optional)">
+        <textarea id="cMsg" rows="4" placeholder="संदेश"></textarea>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button id="sendMsg" class="btn primary">संदेश भेजें</button>
+          <button id="savePDF" class="btn">सहेजें (PDF)</button>
+        </div>
+      </form>
+    </div>
+
+    <aside style="padding-left:12px;border-left:1px solid rgba(0,0,0,0.03)">
+      <h3>मेरी जानकारी</h3>
+      <p class="small">नाम: <span id="infoName">__</span></p>
+      <p class="small">कक्षा: <span id="infoClass">__</span></p>
+      <p class="small">रोल: <span id="infoRoll">__</span></p>
+    </aside>
+  </div>
+</section>
+
+<footer>© मेरी हिंदी परियोजना — बनाया और तैयार किया (Student POV). सुझाव दें और मैं और बेहतर कर दूँगा!</footer>
+
+  </main>  <!-- Lightbox -->  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="छवि पूर्वावलोकन">
+    <div class="viewer" role="document">
+      <img id="lbImg" src="" alt="">
+    </div>
+  </div>  <!-- dialogs -->  <dialog id="editDialog">
+    <form method="dialog" style="padding:12px;min-width:320px">
+      <h3>अपना विवरण भरें</h3>
+      <label style="display:block;margin-top:10px">नाम <input id="inName" type="text" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid var(--glass-border)"></label>
+      <label style="display:block;margin-top:10px">कक्षा <input id="inClass" type="text" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid var(--glass-border)"></label>
+      <label style="display:block;margin-top:10px">रोल <input id="inRoll" type="text" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid var(--glass-border)"></label>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <button id="saveInfo" class="btn primary">सहेजें</button>
+        <button id="cancelEdit" class="btn">रद्द</button>
+      </div>
+    </form>
+  </dialog>  <script>
+    /* ======= state + persistence ======= */
+    const qs = (s,r=document)=> r.querySelector(s);
+    const qsa = (s,r=document)=> Array.from((r||document).querySelectorAll(s));
+
+    // state stored in localStorage
+    const DEFAULT = {
+      info:{name:'आपका नाम',cls:'कक्षा',roll:'रोल'},
+      projects:[
+        {title:'परियोजना का परिचय', desc:'मैंने इस परियोजना में हिंदी भाषा और मुंशी प्रेमचंद की रचनाओं का अध्ययन किया।', tags:['परिचय','साहित्य']},
+        {title:'लेखक परिचय', desc:'मुंशी प्रेमचंद पर संक्षेप टिप्पणी और उनके प्रमुख विचार।', tags:['लेखक','Premchand']}
+      ],
+      skills:[{name:'हिंदी लेखन',v:92},{name:'शोध',v:88},{name:'प्रस्तुति',v:80}],
+      highlights:[
+        'मैंने प्रतियोगिता में भाग लिया।',
+        'प्रोजेक्ट समय पर पूरा किया।'
+      ],
+      // 13 gallery slots (placeholders)
+      gallery: Array.from({length:13}, (_,i)=>({src:`images/image${i+1}.jpg`, caption:`स्लॉट ${i+1}`})),
+      theme:'light'
+    };
+
+    const state = JSON.parse(localStorage.getItem('portfolio_v2') || 'null') || DEFAULT;
+    function save(){ localStorage.setItem('portfolio_v2', JSON.stringify(state)); }
+
+    // apply theme
+    if(state.theme === 'dark') document.documentElement.setAttribute('data-theme','dark');
+
+    /* ======= render helpers ======= */
+    function renderInfo(){ qs('#sName').textContent = state.info.name; qs('#sClass').textContent = state.info.cls; qs('#sRoll').textContent = state.info.roll; qs('#authorLabel').textContent = state.info.name; qs('#infoName').textContent = state.info.name; qs('#infoClass').textContent = state.info.cls; qs('#infoRoll').textContent = state.info.roll; qs('#avatar').textContent = (state.info.name||'मैं').split(' ').map(x=>x[0]||'').slice(0,2).join(''); }
+
+    /* projects */
+    function renderProjects(){ const grid = qs('#projectsGrid'); grid.innerHTML=''; state.projects.forEach((p,i)=>{ const el = document.createElement('div'); el.className='proj card'; el.innerHTML = `<h3 contenteditable data-i='${i}'>${p.title}</h3><p contenteditable data-i='${i}'>${p.desc}</p><div class='tags'>${p.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}</div><div style='margin-top:10px'><button class='btn' data-del='${i}'>हटाएँ</button></div>`; grid.appendChild(el); });
+      // inline edit handler
+      qsa('[contenteditable]').forEach(el=> el.addEventListener('input', e=>{ const idx = e.target.dataset.i; const node = e.target; if(node.tagName==='H3') state.projects[idx].title = node.textContent.trim(); else state.projects[idx].desc = node.textContent.trim(); save(); }));
+      qsa('[data-del]').forEach(b=> b.addEventListener('click', e=>{ const i = +e.target.dataset.del; state.projects.splice(i,1); save(); renderProjects(); }));
+    }
+
+    /* skills */
+    function renderSkills(){ const wrap = qs('#skills'); wrap.innerHTML=''; state.skills.forEach(s=>{ const d=document.createElement('div'); d.className='skill'; d.innerHTML = `<div style='font-weight:700'>${s.name}</div><div class='bar'><i style='width:${s.v}%'></i></div>`; wrap.appendChild(d); }); }
+
+    /* highlights */
+    function renderHighlights(){ const h = qs('#highlights'); h.innerHTML=''; state.highlights.forEach(txt=>{ const el = document.createElement('div'); el.className='highlight'; el.textContent = txt; h.appendChild(el); }); }
+
+    /* timeline */
+    function renderTimeline(){ const t = qs('#timeline'); t.innerHTML=''; const steps = ['विचार','शोध','रचना','संपादन','प्रस्तुति']; steps.forEach((s,i)=>{ const el = document.createElement('div'); el.className='step'; el.innerHTML = `<strong>कदम ${i+1}:</strong> ${s}`; t.appendChild(el); }); }
+
+    /* gallery: exactly 13 slots */
+    function renderGallery(){ const g = qs('#galleryGrid'); g.innerHTML=''; state.gallery.forEach((it,idx)=>{ const d = document.createElement('div'); d.className='thumb'; d.dataset.index = idx; d.innerHTML = `<div class='slotnum'>#${idx+1}</div><img src='${it.src}' alt='${it.caption||"image"}'><div class='cap'>${it.caption||''}</div>`; g.appendChild(d);
+        d.addEventListener('click', ()=> openLightbox(idx));
+        // right-click to replace
+        d.addEventListener('contextmenu', (e)=>{ e.preventDefault(); replaceSlot(idx); });
+    }); }
+
+    /* Lightbox */
+    const lb = qs('#lightbox'), lbImg = qs('#lbImg');
+    function openLightbox(i){ lbImg.src = state.gallery[i].src; lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); }
+    function closeLightbox(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src=''; }
+    lb.addEventListener('click', e=>{ if(e.target===lb) closeLightbox(); }); document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+
+    /* slot replacement: open file chooser then replace that slot */
+    function replaceSlot(idx){ const inp = document.createElement('input'); inp.type='file'; inp.accept='image/*'; inp.onchange = (ev)=>{ const f = ev.target.files[0]; if(!f) return; const url = URL.createObjectURL(f); state.gallery[idx] = {src:url, caption:f.name}; save(); renderGallery(); }; inp.click(); }
+
+    /* handle gallery input: fill empty or replace from start up to 13 */
+    qs('#galleryInput').addEventListener('change', e=>{
+      const files = Array.from(e.target.files||[]);
+      let slotIdx = 0;
+      for(let i=0;i<state.gallery.length && files.length>0;i++){
+        // find first slot that still holds default image path starting with images/image or previously replaced? We'll just fill sequentially.
+        const f = files.shift(); if(!f) break; const url = URL.createObjectURL(f); state.gallery[i] = {src:url, caption:f.name};
+      }
+      save(); renderGallery(); e.target.value='';
+    });
+
+    qs('#clearGallery').addEventListener('click', ()=>{ if(confirm('सभी 13 स्लॉट खाली करना चाहते हैं?')){ state.gallery = Array.from({length:13}, (_,i)=>({src:`images/image${i+1}.jpg`, caption:`स्लॉट ${i+1}`})); save(); renderGallery(); } });
+
+    /* adding / clearing projects */
+    qs('#addProject').addEventListener('click', ()=>{ state.projects.push({title:'नया प्रोजेक्ट', desc:'विवरण दर्ज करें', tags:['नया']}); save(); renderProjects(); });
+    qs('#clearProjects').addEventListener('click', ()=>{ if(confirm('सभी प्रोजेक्ट हटाना है?')){ state.projects = []; save(); renderProjects(); } });
+
+    /* edit info dialog */
+    const editBtn = qs('#editBtn'), editDialog = qs('#editDialog');
+    editBtn.addEventListener('click', ()=>{ qs('#inName').value = state.info.name; qs('#inClass').value = state.info.cls; qs('#inRoll').value = state.info.roll; editDialog.showModal(); });
+    qs('#cancelEdit').addEventListener('click', ()=> editDialog.close());
+    qs('#saveInfo').addEventListener('click', ()=>{ state.info.name = qs('#inName').value || state.info.name; state.info.cls = qs('#inClass').value || state.info.cls; state.info.roll = qs('#inRoll').value || state.info.roll; save(); renderInfo(); editDialog.close(); });
+
+    /* Avatar change */
+    qs('#imgInput').addEventListener('change', e=>{ const f = e.target.files[0]; if(!f) return; const url = URL.createObjectURL(f); // set as first gallery image and avatar
+      state.gallery[0] = {src:url, caption:f.name}; save(); renderGallery(); // also set avatar bg as image (small)
+      qs('#avatar').style.backgroundImage = `url(${url})`; qs('#avatar').textContent=''; });
+
+    /* resume download (text) */
+    qs('#downloadResume').addEventListener('click', ()=>{
+      const text = `नाम: ${state.info.name}
+कक्षा: ${state.info.cls}
+रोल: ${state.info.roll}
+
+Projects:
+` + state.projects.map(p=>`- ${p.title}: ${p.desc}`).join('
+');
+      const blob = new Blob([text], {type:'text/plain'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='Resume.txt'; a.click(); URL.revokeObjectURL(url);
+    });
+
+    /* share/save state */
+    qs('#shareBtn').addEventListener('click', ()=>{ save(); alert('State saved locally — आप इसे बाद में export कर सकते हैं।'); });
+
+    /* print */
+    qs('#printBtn').addEventListener('click', ()=>{ window.print(); });
+
+    /* certificate generation */
+    qs('#certBtn').addEventListener('click', ()=>{
+      const w = window.open('', '_blank');
+      const name = state.info.name || '________';
+      const title = 'प्रमाण पत्र';
+      const html = `<!doctype html><html><head><meta charset='utf-8'><title>प्रमाण पत्र</title><style>body{font-family:Arial, sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:linear-gradient(180deg,#fff6f8,#fff0f3)}.card{padding:40px;border:6px solid #fff;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,0.12);background:#fff;text-align:center}h1{color:${state.theme==='dark'?'#ff9bb2':'#7a1f3d'};margin-bottom:6px}p{color:#4a1c2f}</style></head><body><div class='card'><h1>${title}</h1><p>यह प्रमाणित किया जाता है कि</p><h2 style='margin:6px 0'>${name}</h2><p>ने अपनी हिंदी परियोजना सफलतापूर्वक स्वयं तैयार की।</p><p style='margin-top:16px'>दिनांक: ${new Date().toLocaleDateString()}</p><p style='margin-top:30px'>_____<br>प्रवक्ता / शिक्षक</p></div></body></html>`;w.document.write(html); w.document.close();
+  setTimeout(()=> w.print(), 500);
+});
+
+/* theme toggle */
+qs('#themeBtn').addEventListener('click', ()=>{ const cur = document.documentElement.getAttribute('data-theme'); const nxt = cur==='dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', nxt); state.theme = nxt; save(); });
+
+/* contact demo */
+qs('#sendMsg').addEventListener('click', ()=>{ alert('धन्यवाद! (Demo) — यह लोकल preview है।'); });
+qs('#savePDF').addEventListener('click', ()=>{ window.print(); });
+
+/* initial render */
+renderInfo(); renderProjects(); renderSkills(); renderHighlights(); renderTimeline(); renderGallery();
+
+// reveal on scroll
+const reveals = qsa('.reveal'); const io = new IntersectionObserver(entries=>{ entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); }); }, {threshold:0.12}); reveals.forEach(r=> io.observe(r));
+
+// accessibility tiny
+qsa('button, [role="button"]').forEach(b=> b.addEventListener('keyup', e=>{ if(e.key==='Enter') b.click(); }));
+
+// ensure exactly 13 gallery slots
+// any attempt to add beyond 13 ignored
+// (handled by replacing sequentially)
+
+  </script>
+</body>
+</html>
