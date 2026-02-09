@@ -3,411 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ल्हासा की ओर | तनीषा कुमारी | IX-D</title>
+    <title>ल्हासा की ओर | Premium Project</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Manrope:wght@300;500;800&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
     
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <style>
-        /* --- 1. Variables & Reset (LIGHT MODE) --- */
+        /* --- 1. INDUSTRIAL THEME VARIABLES --- */
         :root {
-            --bg-color: #fcfbf9; /* Soft Cream/Paper Color */
-            --text-color: #2c2c2c; /* Dark Charcoal for readability */
-            --text-light: #666666;
-            --accent-primary: #c93d3d; /* Tibetan Red */
-            --accent-gold: #b89628; /* Darker Gold for visibility on white */
-            --card-bg: #ffffff;
-            --glass-border: rgba(0, 0, 0, 0.08);
-            --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
-            --font-heading: 'Cormorant Garamond', serif;
-            --font-body: 'Manrope', sans-serif;
+            --bg-body: #F9FAFB; /* Ultra Light Grey */
+            --bg-surface: #FFFFFF;
+            --text-main: #111827; /* Near Black */
+            --text-muted: #6B7280; /* Cool Grey */
+            --accent: #DC2626; /* Tibetan Red - Bold */
+            --accent-soft: rgba(220, 38, 38, 0.05);
+            --border-light: #E5E7EB;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
             --font-hindi: 'Tiro Devanagari Hindi', serif;
-            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        /* Reset & Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-body);
+            color: var(--text-main);
             font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            cursor: default; /* Default cursor primarily */
+            line-height: 1.6;
         }
 
-        /* Smooth Scroll Setup */
+        /* Typography */
+        h1, h2, h3 { font-family: var(--font-display); color: var(--text-main); line-height: 1.1; }
+        .hindi { font-family: var(--font-hindi); }
+        
+        /* Smooth Scroll */
         html { scroll-behavior: smooth; }
-        
-        /* Selection Color */
-        ::selection { background: var(--accent-primary); color: white; }
+        ::selection { background: var(--text-main); color: white; }
 
-        /* --- 2. Custom Cursor (Desktop Only) --- */
-        @media (min-width: 992px) {
-            body { cursor: none; }
-            .cursor-dot, .cursor-outline {
-                position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-                border-radius: 50%; z-index: 9999; pointer-events: none;
-            }
-            .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-primary); }
-            .cursor-outline {
-                width: 40px; height: 40px; border: 1px solid rgba(201, 61, 61, 0.3);
-                transition: width 0.2s, height 0.2s, background-color 0.2s;
-            }
-        }
-        @media (max-width: 991px) {
-            .cursor-dot, .cursor-outline { display: none; }
-        }
-
-        /* --- 3. Typography Utility --- */
-        .hindi-text { font-family: var(--font-hindi); }
-        h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; }
-        
-        /* --- 4. Loader --- */
-        #loader {
-            position: fixed; inset: 0; background: var(--bg-color); z-index: 10000;
-            display: flex; justify-content: center; align-items: center; flex-direction: column;
-            transition: transform 0.8s ease-in-out;
-        }
-        .loader-text { font-family: var(--font-heading); font-size: 2rem; letter-spacing: 5px; color: var(--accent-primary); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-
-        /* --- 5. Navigation --- */
+        /* --- 2. FLOATING NAVIGATION (Pill Design) --- */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 5%;
-            display: flex; justify-content: space-between; align-items: center; z-index: 100;
-            background: rgba(252, 251, 249, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+            width: auto; padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-radius: 100px;
+            display: flex; gap: 40px; align-items: center; justify-content: space-between;
+            z-index: 1000; transition: all 0.3s ease;
         }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; color: var(--text-color); }
-        .menu-btn { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); font-weight: 600; }
+        nav:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.1); transform: translateX(-50%) translateY(-2px); }
+        
+        .nav-logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.5px; }
+        .nav-tag { 
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; 
+            font-weight: 600; color: var(--accent); background: var(--accent-soft);
+            padding: 4px 12px; border-radius: 100px;
+        }
 
-        /* --- 6. Hero Section --- */
+        /* --- 3. MAGAZINE HERO SECTION --- */
         header {
-            min-height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; padding-top: 80px; /* Offset for nav */
+            min-height: 100vh;
+            padding: 140px 5% 60px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            max-width: 1600px; margin: 0 auto;
+            gap: 40px;
         }
-        .hero-bg {
-            position: absolute; inset: 0; 
-            /* Light theme overlay on image */
-            background: linear-gradient(to bottom, rgba(252, 251, 249, 0.6), var(--bg-color)), 
-                        url('https://images.unsplash.com/photo-1546519638-68e109498ee3?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-            z-index: -1; animation: scaleIn 20s infinite alternate;
-            opacity: 0.3; /* Faint background for light mode */
-        }
-        @keyframes scaleIn { from { transform: scale(1); } to { transform: scale(1.1); } }
 
-        .hero-content { text-align: center; z-index: 2; position: relative; padding: 0 20px; }
-        .hero-subtitle {
-            display: inline-block; padding: 6px 16px; border: 1px solid var(--accent-gold);
-            border-radius: 50px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
-            margin-bottom: 20px; color: var(--accent-gold); background: #fff;
+        .hero-text-content { position: relative; z-index: 2; }
+        
+        .badge-pill {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 16px; background: white; border: 1px solid var(--border-light);
+            border-radius: 100px; margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
         }
+        .badge-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+        
         .hero-title {
-            font-size: clamp(3rem, 12vw, 8rem); line-height: 0.9; 
-            color: var(--text-color);
-            margin-bottom: 20px;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            margin-bottom: 30px;
+            letter-spacing: -2px;
         }
-        .student-badge {
-            margin-top: 40px; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 30px;
-            text-align: left; background: var(--card-bg); padding: 20px 30px;
-            border-radius: 12px; border: 1px solid var(--glass-border); 
-            box-shadow: var(--shadow-soft);
-        }
-        .sb-item h6 { font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; margin-bottom: 5px; }
-        .sb-item p { font-size: 1.1rem; font-family: var(--font-hindi); font-weight: 600; color: var(--text-color); }
+        
+        .hero-title span { display: block; color: var(--text-muted); font-size: 0.5em; font-family: var(--font-body); font-weight: 300; letter-spacing: 0; margin-bottom: -10px;}
 
-        /* --- 7. Content Sections --- */
-        section { padding: 100px 5%; position: relative; max-width: 1400px; margin: 0 auto; }
-        
-        .section-header { margin-bottom: 60px; }
-        .section-header h2 { font-size: clamp(2.5rem, 5vw, 4rem); color: var(--accent-primary); }
-        .section-header p { font-size: 1rem; max-width: 500px; color: var(--text-light); margin-top: 15px; }
+        .student-info-card {
+            background: white; padding: 30px; border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            display: inline-grid; grid-template-columns: auto auto; gap: 40px;
+            box-shadow: var(--shadow-xl);
+            position: relative; overflow: hidden;
+        }
+        .student-info-card::before {
+            content:''; position: absolute; top:0; left:0; width: 4px; height: 100%; background: var(--accent);
+        }
 
-        /* Author Style */
-        .author-container { display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; align-items: center; }
-        
-        .author-info blockquote {
-            font-family: var(--font-heading); font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.3;
-            margin: 20px 0; color: var(--text-color); border-left: 3px solid var(--accent-gold); padding-left: 20px;
+        .hero-image-block {
+            position: relative; height: 80vh; width: 100%;
+            border-radius: var(--radius-lg); overflow: hidden;
         }
-        .author-info .bio { color: var(--text-light); line-height: 1.8; font-size: 1rem; }
-        
-        .author-img-wrapper {
-            position: relative; height: 500px; width: 100%;
-            border-radius: 200px 200px 20px 20px; overflow: hidden;
-            box-shadow: var(--shadow-soft);
-        }
-        .author-img-wrapper img {
+        .hero-img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(100%); transition: var(--transition);
+            transition: transform 1.5s var(--ease-elastic);
         }
-        .author-img-wrapper:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        .hero-image-block:hover .hero-img { transform: scale(1.05); }
 
-        /* --- 8. Project Gallery (Grid) --- */
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        .project-card {
-            position: relative; aspect-ratio: 3/4; background: #fff;
-            overflow: hidden; border-radius: 8px; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: var(--transition);
-        }
-        .project-card img {
-            width: 100%; height: 100%; object-fit: cover; opacity: 1;
-            transition: var(--transition);
-        }
-        .card-info {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            transform: translateY(100%); transition: var(--transition);
-        }
-        .card-num {
-            position: absolute; top: 15px; right: 15px; font-family: var(--font-heading);
-            font-size: 2.5rem; color: rgba(0,0,0,0.3); z-index: 1;
-            background: rgba(255,255,255,0.5); padding: 0 10px; border-radius: 4px;
-        }
+        /* --- 4. SECTIONS (Industrial Layout) --- */
+        section { padding: 120px 5%; max-width: 1600px; margin: 0 auto; }
         
-        .project-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .project-card:hover img { transform: scale(1.05); }
-        .project-card:hover .card-info { transform: translateY(0); }
-        
-        /* Text inside card needs to remain white because background is dark gradient */
-        .card-info h3, .card-info p { color: #fff; }
+        .section-label {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); margin-bottom: 20px; display: block;
+            border-bottom: 1px solid var(--border-light); padding-bottom: 20px;
+        }
 
-        /* --- 9. Footer --- */
-        footer {
-            padding: 80px 5%; border-top: 1px solid var(--glass-border);
+        /* Author Profile */
+        .author-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+        }
+        .quote-box {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-family: var(--font-display);
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        .bio-text {
+            font-size: 1.1rem; color: #4B5563; text-align: justify;
+        }
+        .author-visual {
+            position: relative;
+        }
+        .author-visual img {
+            width: 100%; border-radius: var(--radius-md);
+            filter: grayscale(100%); transition: 0.5s;
+        }
+        .author-visual:hover img { filter: grayscale(0%); }
+
+        /* --- 5. BENTO GRID GALLERY --- */
+        .gallery-header {
             display: flex; justify-content: space-between; align-items: flex-end;
-            background: #fff; margin-top: 50px;
+            margin-bottom: 60px;
         }
-        .footer-brand { font-family: var(--font-heading); font-size: clamp(3rem, 8vw, 5rem); line-height: 0.8; opacity: 0.1; color: #000; }
-        .footer-details p { color: var(--text-light); font-size: 0.9rem; text-align: right; margin-bottom: 5px; }
 
-        /* --- 10. Lightbox --- */
+        .grid-container {
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            aspect-ratio: 3/4;
+            group: 'card';
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1);
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        .card-img-wrap {
+            width: 100%; height: 80%; overflow: hidden; position: relative;
+        }
+        
+        .card-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .project-card:hover .card-img-wrap img { transform: scale(1.1); }
+
+        .card-meta {
+            height: 20%; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .card-title { font-size: 1.1rem; font-weight: 600; }
+        .card-number { 
+            font-family: var(--font-display); font-size: 1.5rem; 
+            color: var(--border-light); font-style: italic; 
+        }
+        .project-card:hover .card-number { color: var(--accent); }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding: 80px 5% 40px;
+            background: white;
+            margin-top: 100px;
+        }
+        .footer-content {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 40px;
+        }
+        .big-brand {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--border-light);
+            line-height: 0.8;
+            letter-spacing: -3px;
+        }
+
+        /* --- 7. LIGHTBOX & LOADER --- */
         .lightbox {
-            position: fixed; inset: 0; background: rgba(255,255,255,0.95); z-index: 5000;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: 0.3s;
+            position: fixed; inset: 0; background: rgba(255,255,255,0.98); 
+            z-index: 9999; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.4s;
         }
         .lightbox.active { opacity: 1; pointer-events: all; }
-        .lightbox img { max-height: 85vh; max-width: 90vw; box-shadow: 0 20px 50px rgba(0,0,0,0.15); border-radius: 4px; }
-        .close-lb {
-            position: absolute; top: 20px; right: 20px; color: var(--text-color);
-            font-size: 2rem; cursor: pointer; background: #eee; width: 50px; height: 50px;
-            display: flex; justify-content: center; align-items: center; border-radius: 50%;
+        .lightbox img {
+            max-height: 85vh; max-width: 90vw;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: var(--radius-sm);
+        }
+        .close-btn {
+            position: absolute; top: 30px; right: 30px;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--bg-body); border: 1px solid var(--border-light);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s;
+        }
+        .close-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* Loader */
+        .loader-screen {
+            position: fixed; inset: 0; background: var(--bg-surface); z-index: 10000;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            transition: transform 0.8s ease-in-out;
         }
 
-        /* --- MOBILE SPECIFIC FIXES --- */
-        @media (max-width: 768px) {
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 900px) {
+            header { grid-template-columns: 1fr; padding-top: 120px; gap: 20px; }
+            .hero-image-block { height: 400px; order: -1; } /* Image first on mobile */
             .hero-title { font-size: 3.5rem; }
-            .student-badge { width: 100%; display: grid; grid-template-columns: 1fr; gap: 15px; }
-            
-            .author-container { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; }
-            .author-img-wrapper { height: 350px; border-radius: 20px; }
-            .author-info blockquote { font-size: 1.5rem; }
-            
-            section { padding: 60px 20px; }
-            nav { padding: 15px 20px; }
-            
-            .section-header { text-align: left !important; }
-            .section-header p { margin-left: 0 !important; }
-            
-            /* Show card info always on mobile for better UX */
-            .card-info { transform: translateY(0); background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
-            .footer-brand { display: none; }
-            footer { flex-direction: column; align-items: center; text-align: center; }
-            .footer-details p { text-align: center; }
+            .student-info-card { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+            .author-grid { grid-template-columns: 1fr; }
+            .quote-box { font-size: 1.5rem; }
+            .gallery-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            nav { width: 90%; padding: 12px 20px; }
         }
+
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <div id="loader">
-        <div class="loader-text hindi-text">नमस्ते</div>
-        <div style="margin-top: 10px; font-size: 0.7rem; letter-spacing: 2px; color: var(--accent-gold); text-transform: uppercase;">Loading Experience</div>
+    <div class="loader-screen" id="loader">
+        <h2 class="hindi" style="font-size: 2rem;">नमस्ते</h2>
+        <div style="width: 40px; height: 2px; background: var(--accent); margin-top: 15px;"></div>
     </div>
 
     <nav>
-        <div class="logo">TN.</div>
-        <div class="menu-btn hindi-text">कक्षा ९ - 'डी'</div>
+        <div class="nav-logo">TN.</div>
+        <div class="nav-tag hindi">कक्षा ९ - 'डी'</div>
     </nav>
 
-    <header id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <span class="hero-subtitle">हिंदी परियोजना २०२५-२६</span>
-            <h1 class="hero-title hindi-text">ल्हासा<br>की ओर</h1>
+    <header>
+        <div class="hero-text-content">
+            <div class="badge-pill">
+                <span class="badge-dot"></span>
+                <span style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Hindi Project 2026</span>
+            </div>
             
-            <div class="student-badge">
-                <div class="sb-item">
-                    <h6>प्रस्तुतकर्ता</h6>
-                    <p>तनीषा कुमारी</p>
+            <h1 class="hero-title hindi">
+                <span>यात्रा वृत्तांत</span>
+                ल्हासा<br>की ओर
+            </h1>
+
+            <div class="student-info-card">
+                <div>
+                    <h6 style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; margin-bottom: 5px;">Presented By</h6>
+                    <p class="hindi" style="font-size: 1.2rem; font-weight: 600;">तनीषा कुमारी</p>
                 </div>
-                <div class="sb-item">
-                    <h6>अनुक्रमांक (Roll No)</h6>
-                    <p>४० (चालीस)</p>
+                <div>
+                    <h6 style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; margin-bottom: 5px;">Roll Number</h6>
+                    <p class="hindi" style="font-size: 1.2rem; font-weight: 600;">४० (Forty)</p>
                 </div>
             </div>
         </div>
-        
-        <div style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite;">
-            <i class="ri-arrow-down-line" style="font-size: 1.5rem; opacity: 0.5; color: var(--text-color);"></i>
+
+        <div class="hero-image-block">
+            <img src="https://images.unsplash.com/photo-1546519638-68e109498ee3?q=80&w=2070&auto=format&fit=crop" alt="Himalayas" class="hero-img">
         </div>
     </header>
 
-    <section id="author">
-        <div class="section-header">
-            <h6 style="color: var(--accent-gold); letter-spacing: 2px; margin-bottom: 10px; font-weight: 700;">AUTHOR PROFILE</h6>
-            <h2 class="hindi-text">महापंडित राहुल</h2>
-        </div>
+    <section>
+        <span class="section-label">01 — The Author</span>
         
-        <div class="author-container">
-            <div class="author-info">
-                <p class="hindi-text" style="color: var(--accent-primary); font-weight: bold; font-size: 1.2rem;">(१८९३–१९६३)</p>
-                <blockquote class="hindi-text">
-                    "सैर कर दुनिया की गाफ़िल ज़िन्दगानी फिर कहाँ, ज़िन्दगानी गर रही तो नौजवानी फिर कहाँ।"
-                </blockquote>
-                <p class="bio hindi-text">
-                    राहुल सांकृत्यायन हिंदी यात्रा-साहित्य के पितामह माने जाते हैं। वह एक ऐसे घुमक्कड़ थे जिन्होंने न केवल भारत बल्कि तिब्बत, श्रीलंका, और रूस जैसे देशों की दुर्गम यात्राएँ कीं। 
-                    <br><br>
-                    <strong>'ल्हासा की ओर'</strong> उनकी 1929-30 की नेपाल-तिब्बत यात्रा का एक रोमांचक अंश है। उस समय भारतीयों को तिब्बत जाने की मनाही थी, इसलिए उन्होंने यह यात्रा एक <u>भिखमंगे के वेश में</u> की थी।
+        <div class="author-grid">
+            <div class="author-text">
+                <h2 class="hindi" style="font-size: 3rem; margin-bottom: 20px;">महापंडित राहुल</h2>
+                <div class="quote-box hindi">
+                    "सैर कर दुनिया की गाफ़िल ज़िन्दगानी फिर कहाँ..."
+                </div>
+                <p class="bio-text hindi">
+                    राहुल सांकृत्यायन (१८९३–१९६३) हिंदी साहित्य में 'यात्रा-साहित्य' के पितामह हैं। 
+                    'ल्हासा की ओर' उनकी प्रथम तिब्बत यात्रा (1929-30) का एक अद्भुत दस्तावेज है। 
+                    यह यात्रा उन्होंने छद्म-वेश (भिखमंगे के रूप) में की थी, क्योंकि उस समय भारतीयों को तिब्बत जाने की अनुमति नहीं थी।
                 </p>
             </div>
-            <div class="author-img-wrapper">
-                <img src="images/rahul.jpg" alt="Rahul Sankrityayan" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Rahul_Sankrityayan.jpg/800px-Rahul_Sankrityayan.jpg'">
+            <div class="author-visual">
+                <img src="images/rahul.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Rahul_Sankrityayan.jpg/800px-Rahul_Sankrityayan.jpg'" alt="Rahul Sankrityayan">
+                <div style="margin-top: 15px; font-size: 0.8rem; color: var(--text-muted); text-align: right;">Archival Photo</div>
             </div>
         </div>
     </section>
 
-    <section id="project">
-        <div class="section-header" style="text-align: right;">
-            <h6 style="color: var(--accent-gold); letter-spacing: 2px; margin-bottom: 10px; font-weight: 700;">DIGITAL PROJECT</h6>
-            <h2 class="hindi-text">परियोजना पन्ने</h2>
-            <p class="hindi-text" style="margin-left: auto;">इस यात्रा वृतांत के माध्यम से तिब्बती समाज, संस्कृति और भौगोलिक स्थितियों का चित्रण।</p>
+    <section>
+        <div class="gallery-header">
+            <div>
+                <span class="section-label" style="border: none; padding: 0; margin-bottom: 10px;">02 — The Project</span>
+                <h2 class="hindi" style="font-size: 2.5rem;">परियोजना पन्ने</h2>
+            </div>
+            <p class="hindi" style="max-width: 400px; color: var(--text-muted); text-align: right;">
+                डिजिटल प्रस्तुति: तिब्बत की दुर्गम पहाड़ियों से लेकर वहां की सामाजिक व्यवस्था तक का सफर।
+            </p>
         </div>
 
-        <div class="gallery-grid" id="gallery-container">
+        <div class="grid-container" id="gallery-grid">
             </div>
     </section>
 
     <footer>
-        <div class="footer-brand">TANISHA.</div>
-        <div class="footer-details">
-            <p><strong>हिंदी (ब) | कोड: ००८५</strong></p>
-            <p>केंद्रीय विद्यालय पटना</p>
-            <p style="color: var(--accent-primary); margin-top: 10px; font-size: 0.8rem;">&copy; २०२६ | सभी अधिकार सुरक्षित</p>
+        <div class="footer-content">
+            <div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Project Details</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Course: Hindi (B) - 0085</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Session: 2025-2026</p>
+            </div>
+            <div style="text-align: right;">
+                <p class="hindi" style="font-size: 1.1rem; font-weight: 600;">केंद्रीय विद्यालय पटना</p>
+                <p style="font-size: 0.8rem; color: var(--accent); margin-top: 5px;">Designed with ❤️</p>
+            </div>
         </div>
+        <div class="big-brand">TANISHA.</div>
     </footer>
 
     <div class="lightbox" id="lightbox">
-        <div class="close-lb"><i class="ri-close-line"></i></div>
+        <div class="close-btn"><i class="ri-close-line" style="font-size: 1.5rem;"></i></div>
         <img src="" id="lb-img">
     </div>
 
     <script>
-        // 1. Loader Logic
+        // 1. Remove Loader
         window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.transform = 'translateY(-100%)';
-            }, 1000);
+            document.getElementById('loader').style.transform = 'translateY(-100%)';
         });
 
-        // 2. Custom Cursor Logic (Only runs if elements exist/desktop)
-        const cursorDot = document.querySelector('[data-cursor-dot]');
-        const cursorOutline = document.querySelector('[data-cursor-outline]');
-
-        if(cursorDot && window.matchMedia("(min-width: 992px)").matches) {
-            window.addEventListener('mousemove', function(e) {
-                const posX = e.clientX;
-                const posY = e.clientY;
-
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-
-                cursorOutline.animate({
-                    left: `${posX}px`,
-                    top: `${posY}px`
-                }, { duration: 500, fill: "forwards" });
-            });
-
-            // Hover effect for cursor
-            document.querySelectorAll('a, .project-card').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                    cursorOutline.style.backgroundColor = 'rgba(201, 61, 61, 0.1)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursorOutline.style.backgroundColor = 'transparent';
-                });
-            });
-        }
-
-        // 3. Dynamic Gallery Generation
-        const galleryContainer = document.getElementById('gallery-container');
+        // 2. Populate Grid
+        const grid = document.getElementById('gallery-grid');
         const pages = [
             "मुखपृष्ठ", "प्रमाण पत्र", "आभार", "विषय-सूची", "लेखक परिचय", 
             "ल्हासा की यात्रा", "तिब्बती समाज", "कठिन रास्ते", "थोंगला का मोड़", 
             "सांस्कृतिक झलक", "यात्रा का अंत", "निष्कर्ष", "ग्रंथ सूची"
         ];
 
-        pages.forEach((title, index) => {
-            const num = index + 1;
-            const formattedNum = num < 10 ? `0${num}` : num;
-            
-            const card = document.createElement('div');
-            card.className = 'project-card';
-            
-            // Note: Updated placeholder text color to be readable in Light Mode logic
-            card.innerHTML = `
-                <span class="card-num">${formattedNum}</span>
-                <img src="images/image${num}.jpg" 
-                     onerror="this.src='https://placehold.co/600x800/EEE/333?text=${num}\\n${encodeURIComponent(title)}'" 
-                     alt="${title}">
-                <div class="card-info">
-                    <h3 class="hindi-text" style="font-size: 1.5rem; margin-bottom: 5px;">${title}</h3>
-                    <p style="font-size: 0.8rem; color: #ddd;">डिजिटल पृष्ठ ${formattedNum}</p>
+        pages.forEach((title, i) => {
+            const num = (i + 1).toString().padStart(2, '0');
+            const item = document.createElement('div');
+            item.className = 'project-card';
+            item.innerHTML = `
+                <div class="card-img-wrap">
+                    <img src="images/image${i+1}.jpg" 
+                        onerror="this.src='https://placehold.co/600x800/F3F4F6/333?text=${i+1}'" 
+                        alt="${title}">
+                </div>
+                <div class="card-meta">
+                    <span class="hindi card-title">${title}</span>
+                    <span class="card-number">${num}</span>
                 </div>
             `;
             
-            // Add click for lightbox
-            card.addEventListener('click', () => {
-                const img = card.querySelector('img').src;
-                openLightbox(img);
+            // Lightbox Event
+            item.addEventListener('click', () => {
+                const src = item.querySelector('img').src;
+                const lb = document.getElementById('lightbox');
+                document.getElementById('lb-img').src = src;
+                lb.classList.add('active');
             });
 
-            galleryContainer.appendChild(card);
+            grid.appendChild(item);
         });
 
-        // 4. Lightbox Logic
-        const lightbox = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lb-img');
-        const closeLb = document.querySelector('.close-lb');
-
-        function openLightbox(src) {
-            lbImg.src = src;
-            lightbox.classList.add('active');
-        }
-
-        closeLb.addEventListener('click', () => {
-            lightbox.classList.remove('active');
+        // 3. Lightbox Close
+        const lb = document.getElementById('lightbox');
+        lb.querySelector('.close-btn').addEventListener('click', () => lb.classList.remove('active'));
+        lb.addEventListener('click', (e) => {
+            if(e.target === lb) lb.classList.remove('active');
         });
-
-        lightbox.addEventListener('click', (e) => {
-            if(e.target === lightbox) lightbox.classList.remove('active');
-        });
-
     </script>
 </body>
 </html>
