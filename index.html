@@ -1,284 +1,269 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>तनीषा कुमारी | हिंदी प्रोजेक्ट</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* बहुत ही सॉफ्ट और प्रीमियम कलर पैलेट */
+            --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --primary-color: #333;
+            --accent-color: #D81B60; /* डार्क पिंक हाईलाइट */
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --border: 1px solid rgba(255, 255, 255, 0.4);
         }
-        .quote-box {
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            font-family: var(--font-display);
-            font-style: italic;
-            margin-bottom: 40px;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Poppins', 'Tiro Devanagari Hindi', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--primary-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; /* पेज को हमेशा बीच में रखेगा */
+            padding: 20px 10px;
         }
-        .bio-text {
-            font-size: 1.1rem; color: #4B5563; text-align: justify;
+
+        /* यह मोबाइल जैसा लुक देगा चाहे किसी भी स्क्रीन पर खोलें */
+        .mobile-container {
+            width: 100%;
+            max-width: 480px; /* फोन की चौड़ाई तक सीमित */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
-        .author-visual {
+
+        /* प्रोफाइल हेडर */
+        .profile-header {
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
+        }
+
+        h1 { font-size: 1.8rem; margin-bottom: 5px; color: #2c3e50; }
+        .tagline { font-size: 0.9rem; color: #666; background: #fff; padding: 5px 15px; border-radius: 20px; border: 1px solid #eee; display: inline-block; }
+
+        /* ग्लास कार्ड (Glass Card) डिज़ाइन */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 24px;
+            border: var(--border);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card:active { transform: scale(0.98); }
+
+        /* स्टूडेंट डिटेल्स टेबल को हटाकर मॉडर्न लिस्ट बनाया */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+        }
+        .info-item label { display: block; font-size: 0.75rem; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .info-item span { font-size: 1.1rem; font-weight: 600; color: #333; }
+
+        /* प्रोजेक्ट पेजेस के लिए कार्ड */
+        .project-page {
             position: relative;
-        }
-        .author-visual img {
-            width: 100%; border-radius: var(--radius-md);
-            filter: grayscale(100%); transition: 0.5s;
-        }
-        .author-visual:hover img { filter: grayscale(0%); }
-
-        /* --- 5. BENTO GRID GALLERY --- */
-        .gallery-header {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            margin-bottom: 60px;
-        }
-
-        .grid-container {
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: var(--bg-surface);
-            border-radius: var(--radius-md);
             overflow: hidden;
-            border: 1px solid var(--border-light);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
-            position: relative;
-            aspect-ratio: 3/4;
-            group: 'card';
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1);
-            border-color: rgba(0,0,0,0.1);
-        }
-
-        .card-img-wrap {
-            width: 100%; height: 80%; overflow: hidden; position: relative;
-        }
-        
-        .card-img-wrap img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        
-        .project-card:hover .card-img-wrap img { transform: scale(1.1); }
-
-        .card-meta {
-            height: 20%; padding: 0 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--border-light);
-        }
-        
-        .card-title { font-size: 1.1rem; font-weight: 600; }
-        .card-number { 
-            font-family: var(--font-display); font-size: 1.5rem; 
-            color: var(--border-light); font-style: italic; 
-        }
-        .project-card:hover .card-number { color: var(--accent); }
-
-        /* --- 6. FOOTER --- */
-        footer {
-            border-top: 1px solid var(--border-light);
-            padding: 80px 5% 40px;
+            border-radius: 16px;
+            margin-bottom: 15px;
             background: white;
-            margin-top: 100px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .footer-content {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            flex-wrap: wrap; gap: 40px;
-        }
-        .big-brand {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-family: var(--font-display);
-            font-weight: 700;
-            color: var(--border-light);
-            line-height: 0.8;
-            letter-spacing: -3px;
+        
+        .project-page img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 3px solid #f0f0f0;
         }
 
-        /* --- 7. LIGHTBOX & LOADER --- */
-        .lightbox {
-            position: fixed; inset: 0; background: rgba(255,255,255,0.98); 
-            z-index: 9999; display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: 0.4s;
-        }
-        .lightbox.active { opacity: 1; pointer-events: all; }
-        .lightbox img {
-            max-height: 85vh; max-width: 90vw;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border-radius: var(--radius-sm);
-        }
-        .close-btn {
-            position: absolute; top: 30px; right: 30px;
-            width: 50px; height: 50px; border-radius: 50%;
-            background: var(--bg-body); border: 1px solid var(--border-light);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s;
-        }
-        .close-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
-
-        /* Loader */
-        .loader-screen {
-            position: fixed; inset: 0; background: var(--bg-surface); z-index: 10000;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
-            transition: transform 0.8s ease-in-out;
+        .page-number {
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
         }
 
-        /* --- MOBILE RESPONSIVE --- */
-        @media (max-width: 900px) {
-            header { grid-template-columns: 1fr; padding-top: 120px; gap: 20px; }
-            .hero-image-block { height: 400px; order: -1; } /* Image first on mobile */
-            .hero-title { font-size: 3.5rem; }
-            .student-info-card { width: 100%; display: flex; flex-direction: column; gap: 15px; }
-            .author-grid { grid-template-columns: 1fr; }
-            .quote-box { font-size: 1.5rem; }
-            .gallery-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-            nav { width: 90%; padding: 12px 20px; }
+        /* बटन */
+        .btn-download {
+            background: #222;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            margin-top: 10px;
+            display: inline-block;
         }
 
-        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+        footer { margin-top: 30px; font-size: 0.8rem; color: #999; text-align: center; padding-bottom: 20px; }
+
+        /* लाइटबॉक्स (ज़ूम करने के लिए) */
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        #lightbox img { max-width: 95%; max-height: 80vh; border-radius: 10px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .close-lb { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; cursor: pointer; }
+
+        /* एनीमेशन */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .anim-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
 
-    <div class="loader-screen" id="loader">
-        <h2 class="hindi" style="font-size: 2rem;">नमस्ते</h2>
-        <div style="width: 40px; height: 2px; background: var(--accent); margin-top: 15px;"></div>
-    </div>
-
-    <nav>
-        <div class="nav-logo">TN.</div>
-        <div class="nav-tag hindi">कक्षा ९ - 'डी'</div>
-    </nav>
-
-    <header>
-        <div class="hero-text-content">
-            <div class="badge-pill">
-                <span class="badge-dot"></span>
-                <span style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Hindi Project 2026</span>
-            </div>
-            
-            <h1 class="hero-title hindi">
-                <span>यात्रा वृत्तांत</span>
-                ल्हासा<br>की ओर
-            </h1>
-
-            <div class="student-info-card">
-                <div>
-                    <h6 style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; margin-bottom: 5px;">Presented By</h6>
-                    <p class="hindi" style="font-size: 1.2rem; font-weight: 600;">तनीषा कुमारी</p>
-                </div>
-                <div>
-                    <h6 style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; margin-bottom: 5px;">Roll Number</h6>
-                    <p class="hindi" style="font-size: 1.2rem; font-weight: 600;">४० (Forty)</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="hero-image-block">
-            <img src="https://images.unsplash.com/photo-1546519638-68e109498ee3?q=80&w=2070&auto=format&fit=crop" alt="Himalayas" class="hero-img">
-        </div>
-    </header>
-
-    <section>
-        <span class="section-label">01 — The Author</span>
+    <div class="mobile-container">
         
-        <div class="author-grid">
-            <div class="author-text">
-                <h2 class="hindi" style="font-size: 3rem; margin-bottom: 20px;">महापंडित राहुल</h2>
-                <div class="quote-box hindi">
-                    "सैर कर दुनिया की गाफ़िल ज़िन्दगानी फिर कहाँ..."
+        <header class="profile-header">
+            <div class="avatar-circle">त</div> <h1>तनीषा कुमारी</h1>
+            <div class="tagline">हिंदी परियोजना २०२६</div>
+        </header>
+
+        <div class="glass-card anim-up delay-1">
+            <h3 style="margin-bottom: 20px; color: var(--accent-color);">छात्र विवरण</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>कक्षा</label>
+                    <span>९ - 'डी'</span>
                 </div>
-                <p class="bio-text hindi">
-                    राहुल सांकृत्यायन (१८९३–१९६३) हिंदी साहित्य में 'यात्रा-साहित्य' के पितामह हैं। 
-                    'ल्हासा की ओर' उनकी प्रथम तिब्बत यात्रा (1929-30) का एक अद्भुत दस्तावेज है। 
-                    यह यात्रा उन्होंने छद्म-वेश (भिखमंगे के रूप) में की थी, क्योंकि उस समय भारतीयों को तिब्बत जाने की अनुमति नहीं थी।
-                </p>
-            </div>
-            <div class="author-visual">
-                <img src="images/rahul.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Rahul_Sankrityayan.jpg/800px-Rahul_Sankrityayan.jpg'" alt="Rahul Sankrityayan">
-                <div style="margin-top: 15px; font-size: 0.8rem; color: var(--text-muted); text-align: right;">Archival Photo</div>
+                <div class="info-item">
+                    <label>रोल नंबर</label>
+                    <span>४०</span>
+                </div>
+                <div class="info-item">
+                    <label>विषय</label>
+                    <span>हिंदी (ब)</span>
+                </div>
+                <div class="info-item">
+                    <label>शीर्षक</label>
+                    <span>ल्हासा की ओर</span>
+                </div>
             </div>
         </div>
-    </section>
 
-    <section>
-        <div class="gallery-header">
-            <div>
-                <span class="section-label" style="border: none; padding: 0; margin-bottom: 10px;">02 — The Project</span>
-                <h2 class="hindi" style="font-size: 2.5rem;">परियोजना पन्ने</h2>
-            </div>
-            <p class="hindi" style="max-width: 400px; color: var(--text-muted); text-align: right;">
-                डिजिटल प्रस्तुति: तिब्बत की दुर्गम पहाड़ियों से लेकर वहां की सामाजिक व्यवस्था तक का सफर।
+        <div class="glass-card anim-up delay-2">
+            <h3 style="color: #444;">लेखक: राहुल सांकृत्यायन</h3>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #666; line-height: 1.6;">
+                यह यात्रा वृत्तांत राहुल जी की तिब्बत यात्रा का है। इसमें उन्होंने दुर्गम रास्तों और वहां के समाज का सजीव चित्रण किया है।
             </p>
         </div>
 
-        <div class="grid-container" id="gallery-grid">
-            </div>
-    </section>
+        <div style="width: 100%; border-bottom: 1px dashed #ccc; margin: 10px 0;"></div>
 
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Project Details</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Course: Hindi (B) - 0085</p>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Session: 2025-2026</p>
+        <h3 class="anim-up" style="align-self: flex-start; margin-left: 10px; color: #444;">मेरी फाइल</h3>
+        
+        <div id="project-container" style="width: 100%;">
             </div>
-            <div style="text-align: right;">
-                <p class="hindi" style="font-size: 1.1rem; font-weight: 600;">केंद्रीय विद्यालय पटना</p>
-                <p style="font-size: 0.8rem; color: var(--accent); margin-top: 5px;">Designed with ❤️</p>
-            </div>
-        </div>
-        <div class="big-brand">TANISHA.</div>
-    </footer>
 
-    <div class="lightbox" id="lightbox">
-        <div class="close-btn"><i class="ri-close-line" style="font-size: 1.5rem;"></i></div>
-        <img src="" id="lb-img">
+        <footer>
+            मेड विथ ❤️ बाय तनीषा<br>
+            सत्र २०२५-२०२६
+        </footer>
+
+    </div>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-lb">&times;</span>
+        <img id="lb-img" src="">
     </div>
 
     <script>
-        // 1. Remove Loader
-        window.addEventListener('load', () => {
-            document.getElementById('loader').style.transform = 'translateY(-100%)';
-        });
-
-        // 2. Populate Grid
-        const grid = document.getElementById('gallery-grid');
+        // प्रोजेक्ट के पन्नों के नाम
         const pages = [
-            "मुखपृष्ठ", "प्रमाण पत्र", "आभार", "विषय-सूची", "लेखक परिचय", 
-            "ल्हासा की यात्रा", "तिब्बती समाज", "कठिन रास्ते", "थोंगला का मोड़", 
-            "सांस्कृतिक झलक", "यात्रा का अंत", "निष्कर्ष", "ग्रंथ सूची"
+            "कवर पेज", 
+            "प्रमाण पत्र", 
+            "आभार", 
+            "इंडेक्स", 
+            "राहुल सांकृत्यायन (परिचय)", 
+            "यात्रा का आरम्भ", 
+            "तिब्बत का समाज", 
+            "डाँड़ा थोंगला", 
+            "ल्हासा की ओर", 
+            "वापसी", 
+            "निष्कर्ष", 
+            "बिब्लियोग्राफी"
         ];
 
-        pages.forEach((title, i) => {
-            const num = (i + 1).toString().padStart(2, '0');
-            const item = document.createElement('div');
-            item.className = 'project-card';
-            item.innerHTML = `
-                <div class="card-img-wrap">
-                    <img src="images/image${i+1}.jpg" 
-                        onerror="this.src='https://placehold.co/600x800/F3F4F6/333?text=${i+1}'" 
-                        alt="${title}">
-                </div>
-                <div class="card-meta">
-                    <span class="hindi card-title">${title}</span>
-                    <span class="card-number">${num}</span>
-                </div>
+        const container = document.getElementById('project-container');
+        let delay = 0.5;
+
+        // लूप चलाकर कार्ड बनाना
+        pages.forEach((title, index) => {
+            // इमेज नंबर 1 से शुरू होगा (index+1)
+            const imgNum = index + 1;
+            
+            const card = document.createElement('div');
+            card.className = 'glass-card project-page anim-up';
+            card.style.padding = '0'; // इमेज वाले कार्ड में पैडिंग नहीं चाहिए
+            card.style.animationDelay = `${delay}s`;
+            
+            card.innerHTML = `
+                <img src="images/image${imgNum}.jpg" 
+                     alt="${title}" 
+                     onclick="openLightbox(this.src)"
+                     onerror="this.src='https://placehold.co/600x800/f8bbd0/7b241c?text=Page+${imgNum}'">
+                <div class="page-number">${imgNum}. ${title}</div>
             `;
             
-            // Lightbox Event
-            item.addEventListener('click', () => {
-                const src = item.querySelector('img').src;
-                const lb = document.getElementById('lightbox');
-                document.getElementById('lb-img').src = src;
-                lb.classList.add('active');
-            });
-
-            grid.appendChild(item);
+            container.appendChild(card);
+            delay += 0.1; // हर कार्ड थोड़ा रुक कर आएगा
         });
 
-        // 3. Lightbox Close
-        const lb = document.getElementById('lightbox');
-        lb.querySelector('.close-btn').addEventListener('click', () => lb.classList.remove('active'));
-        lb.addEventListener('click', (e) => {
-            if(e.target === lb) lb.classList.remove('active');
-        });
+        // लाइटबॉक्स फंक्शन
+        function openLightbox(src) {
+            document.getElementById('lb-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
     </script>
 </body>
 </html>
