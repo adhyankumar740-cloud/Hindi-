@@ -198,6 +198,23 @@
     </div>
 
     <div class="gallery" id="galleryGrid" aria-live="polite">
+      <noscript>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+          <div class="thumb"><img src="images/images1.jpg" alt="स्लॉट 1"><div class="cap">स्लॉट 1</div></div>
+          <div class="thumb"><img src="images/images2.jpg" alt="स्लॉट 2"><div class="cap">स्लॉट 2</div></div>
+          <div class="thumb"><img src="images/images3.jpg" alt="स्लॉट 3"><div class="cap">स्लॉट 3</div></div>
+          <div class="thumb"><img src="images/images4.jpg" alt="स्लॉट 4"><div class="cap">स्लॉट 4</div></div>
+          <div class="thumb"><img src="images/images5.jpg" alt="स्लॉट 5"><div class="cap">स्लॉट 5</div></div>
+          <div class="thumb"><img src="images/images6.jpg" alt="स्लॉट 6"><div class="cap">स्लॉट 6</div></div>
+          <div class="thumb"><img src="images/images7.jpg" alt="स्लॉट 7"><div class="cap">स्लॉट 7</div></div>
+          <div class="thumb"><img src="images/images8.jpg" alt="स्लॉट 8"><div class="cap">स्लॉट 8</div></div>
+          <div class="thumb"><img src="images/images9.jpg" alt="स्लॉट 9"><div class="cap">स्लॉट 9</div></div>
+          <div class="thumb"><img src="images/images10.jpg" alt="स्लॉट 10"><div class="cap">स्लॉट 10</div></div>
+          <div class="thumb"><img src="images/images11.jpg" alt="स्लॉट 11"><div class="cap">स्लॉट 11</div></div>
+          <div class="thumb"><img src="images/images12.jpg" alt="स्लॉट 12"><div class="cap">स्लॉट 12</div></div>
+          <div class="thumb"><img src="images/images13.jpg" alt="स्लॉट 13"><div class="cap">स्लॉट 13</div></div>
+        </div>
+      </noscript>
       <!-- 13 thumbs inserted by JS -->
     </div>
 
@@ -266,7 +283,7 @@
         'प्रोजेक्ट समय पर पूरा किया।'
       ],
       // 13 gallery slots (placeholders)
-      gallery: Array.from({length:13}, (_,i)=>({src:`images/image${i+1}.jpg`, caption:`स्लॉट ${i+1}`})),
+      gallery: Array.from({length:13}, (_,i)=>({src:`images/images${i+1}.jpg`, caption:`स्लॉट ${i+1}`})),
       theme:'light'
     };
 
