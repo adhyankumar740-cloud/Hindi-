@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hindi Project Portfolio - Lhasa Ki Ore">
+    <title>हिंदी परियोजना | ल्हासा की ओर</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Rozha+One&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- 1. VARIABLES & RESET --- */
+        :root {
+            /* थीम का रंग थोड़ा बदला है ताकि यात्रा वृत्तांत जैसा फील आए (Earthy Red/Brown) */
+            --primary: #A04000; /* Rust/Earth color */
+            --primary-light: #D35400;
+            --accent: #F1C40F; 
+            --bg-gradient: radial-gradient(circle at 10% 20%, rgb(255, 245, 235) 0%, rgb(255, 230, 220) 90%);
+            --glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-main: #2D1B10;
+            --text-muted: #6E4530;
+            --shadow: 0 8px 32px 0 rgba(160, 64, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Rozha One', serif; color: var(--primary); font-weight: 400; }
+        
+        /* --- 2. PRELOADER --- */
+        #preloader {
+            position: fixed; inset: 0; background: #fff8f0; z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            transition: opacity 0.6s ease;
+        }
+        .loader-text { font-family: 'Rozha One'; font-size: 2rem; color: var(--primary); animation: pulse 2s infinite; }
+        .spinner {
+            width: 40px; height: 40px; border: 4px solid var(--primary-light);
+            border-top: 4px solid var(--primary); border-radius: 50%; margin-top: 15px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* --- 3. NAVIGATION --- */
+        nav {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 800px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 12px 30px; border-radius: 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--glass-border);
+            z-index: 100; transition: var(--transition);
+        }
+        nav .logo { font-weight: 700; color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; transition: color 0.3s; position: relative; }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+            background: var(--primary); transition: width 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        nav a:hover::after { width: 100%; }
+
+        /* Mobile Menu Button */
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
+
+        /* --- 4. LAYOUT UTILITIES --- */
+        section { padding: 100px 8%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        
+        /* Reveal Animation Classes */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(160, 64, 0, 0.15); }
+
+        /* --- 5. HERO SECTION --- */
+        #home {
+            text-align: center;
+            /* Mountain/Path abstract SVG pattern */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a04000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            padding-top: 150px;
+        }
+        .hero-badge {
+            display: inline-block; padding: 8px 16px; background: rgba(160, 64, 0, 0.1);
+            color: var(--primary); border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 20px;
+        }
+        .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.2; margin-bottom: 20px; }
+        .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; }
+        
+        .student-info {
+            display: inline-flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+            border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px;
+        }
+        .info-item h4 { font-size: 0.9rem; font-family: 'Poppins'; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+        .info-item p { font-size: 1.2rem; font-weight: 600; color: var(--primary); }
+
+        /* --- 6. INDEX SECTION (Grid) --- */
+        .index-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px;
+        }
+        .index-item {
+            display: flex; align-items: center; gap: 15px; padding: 20px;
+            background: white; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);
+            cursor: pointer; transition: var(--transition);
+        }
+        .index-item:hover { transform: translateX(10px); border-color: var(--primary-light); }
+        .idx-num {
+            font-family: 'Rozha One'; font-size: 1.5rem; color: rgba(160, 64, 0, 0.2);
+        }
+
+        /* --- 7. AUTHOR TIMELINE --- */
+        .timeline { position: relative; max-width: 800px; margin: 40px auto; padding-left: 30px; border-left: 2px solid rgba(160, 64, 0, 0.2); }
+        .event { margin-bottom: 40px; position: relative; padding-left: 30px; }
+        .event::before {
+            content: ''; position: absolute; left: -36px; top: 5px; width: 14px; height: 14px;
+            background: var(--primary); border-radius: 50%; border: 4px solid #fff8f0;
+        }
+        .event-date { font-weight: 600; color: var(--primary); margin-bottom: 5px; display: block; }
+        .event h3 { font-size: 1.5rem; margin-bottom: 10px; font-family: 'Poppins'; font-weight: 600; }
+        .event p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* --- 8. GALLERY (Masonry-ish) --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;
+        }
+        .gallery-item {
+            position: relative; border-radius: 16px; overflow: hidden; height: 300px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;
+        }
+        .gallery-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            opacity: 0; transition: 0.4s ease; display: flex; align-items: flex-end; padding: 20px;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .caption-text { color: white; font-weight: 500; font-size: 1.1rem; }
+
+        /* --- 9. LIGHTBOX --- */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.9);
+            display: none; justify-content: center; align-items: center; opacity: 0;
+            transition: opacity 0.3s ease; backdrop-filter: blur(5px);
+        }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-height: 85vh; max-width: 90vw; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        .close-lb { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; }
+
+        /* --- 10. FOOTER --- */
+        footer {
+            background: var(--primary); color: white; padding: 60px 8% 30px; text-align: center;
+        }
+        .footer-content { max-width: 600px; margin: 0 auto; }
+        .footer-logo { font-family: 'Rozha One'; font-size: 2rem; margin-bottom: 20px; display: block; }
+        .footer-divider { height: 1px; background: rgba(255,255,255,0.2); margin: 30px 0; }
+        .copyright { font-size: 0.9rem; opacity: 0.8; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { bottom: 20px; top: auto; width: 90%; justify-content: center; padding: 15px 25px; }
+            nav .logo, nav ul { display: none; } 
+            nav ul { display: flex; gap: 20px; font-size: 0.8rem; }
+            .hero-title { font-size: 2.2rem; }
+            .student-info { gap: 20px; }
+            section { padding: 80px 6%; }
+        }
+        
+        /* Animation Keyframes */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-text">नमस्ते</div>
+        <div class="spinner"></div>
+    </div>
+
+    <nav>
+        <a href="#home" class="logo"><i class="ph ph-mountains"></i> पोर्टफोलियो</a>
+        <ul>
+            <li><a href="#home">मुखपृष्ठ</a></li>
+            <li><a href="#index">अनुक्रमणिका</a></li>
+            <li><a href="#author">लेखक</a></li>
+            <li><a href="#gallery">चित्र दीर्घा</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="container reveal">
+            <span class="hero-badge">हिंदी परियोजना कार्य (2025-26)</span>
+            <h1 class="hero-title">तिब्बत की<br><span style="color:var(--primary-light)">रोमांचक यात्रा</span></h1>
+            <p class="hero-subtitle">
+                महापंडित राहुल सांकृत्यायन द्वारा रचित यात्रा वृत्तांत <strong>'ल्हासा की ओर'</strong> का एक विस्तृत और रचनात्मक अध्ययन।
+            </p>
+
+            <div class="glass-card student-info">
+                <div class="info-item">
+                    <h4>नाम</h4>
+                    <p>तनीषा कुमारी</p> </div>
+                <div class="info-item">
+                    <h4>कक्षा</h4>
+                    <p>9  'डी'</p> </div>
+                <div class="info-item">
+                    <h4>अनुक्रमांक</h4>
+                    <p>40</p> </div>
+                <div class="info-item">
+                    <h4>विषय</h4>
+                    <p>हिंदी (ब)</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 50px;">
+                <i class="ph ph-arrow-down" style="font-size: 2rem; color: var(--primary); animation: pulse 2s infinite;"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="index">
+        <div class="container">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 50px;">परियोजना की रूपरेखा</h2>
+            
+            <div class="index-grid reveal">
+                <div class="index-item">
+                    <span class="idx-num">01</span>
+                    <div>
+                        <strong>प्रस्तावना</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">यात्रा साहित्य का महत्व</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">02</span>
+                    <div>
+                        <strong>राहुल सांकृत्यायन</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">महापंडित का जीवन परिचय</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">03</span>
+                    <div>
+                        <strong>'ल्हासा की ओर' सारांश</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">डाँड़े, थोंगला और सुमति</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">04</span>
+                    <div>
+                        <strong>तिब्बती समाज</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">संस्कृति और सामाजिक व्यवस्था</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">05</span>
+                    <div>
+                        <strong>निष्कर्ष</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">यात्रा से मिली सीख</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">06</span>
+                    <div>
+                        <strong>संदर्भ सूची</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">क्षितिज भाग-1 और अन्य स्रोत</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="author" style="background: white;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" class="reveal">
+                <span class="hero-badge">घुमक्कड़ शास्त्र के जनक</span>
+                <h2>राहुल सांकृत्यायन: एक दृष्टि</h2>
+            </div>
+
+            <div class="glass-card reveal">
+                <div class="timeline">
+                    <div class="event">
+                        <span class="event-date">1893</span>
+                        <h3>जन्म और बचपन</h3>
+                        <p>उत्तर प्रदेश के आजमगढ़ जिले के पंधा गाँव में जन्म। इनका मूल नाम केदारनाथ पांडेय था।</p>
+                    </div>
+                    <div class="event">
+                        <span class="event-date">1929 - 1930</span>
+                        <h3>तिब्बत यात्रा</h3>
+                        <p>नेपाल के रास्ते तिब्बत की दुर्गम यात्रा की। बौद्ध धर्म से प्रभावित होकर 1930 में श्रीलंका जाकर बौद्ध धर्म ग्रहण किया।</p>
+                    </div>
+                    <div class="event">
+                        <span class="event-date">1963</span>
+                        <h3>साहित्यिक योगदान और निधन</h3>
+                        <p>'महापंडित' की उपाधि से सम्मानित। 1963 में इस महान घुमक्कड़ साहित्यकार का निधन हुआ।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:40px;" class="reveal">
+                <div>
+                    <h2>चित्र दीर्घा</h2>
+                    <p style="color:var(--text-muted)">परियोजना से जुड़ी मेरी रचनात्मक प्रस्तुतियाँ</p>
+                </div>
+                <button onclick="window.print()" style="padding:10px 20px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-family:'Poppins';">
+                    <i class="ph ph-printer"></i> PDF सेव करें
+                </button>
+            </div>
+
+            <div class="gallery-grid reveal">
+                <div class="gallery-item" data-caption="परियोजना का मुखपृष्ठ">
+                    <img src="./images/image1.jpg" alt="Project Cover" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">मुखपृष्ठ</span></div>
+                </div>
+                
+                <div class="gallery-item" data-caption="लेखक परिचय">
+                    <img src="./images/image2.jpg" alt="Author" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">राहुल सांकृत्यायन</span></div>
+                </div>
+                
+                <div class="gallery-item" data-caption="यात्रा का मार्ग">
+                    <img src="./images/image3.jpg" alt="Journey Map" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">यात्रा मार्ग</span></div>
+                </div>
+                
+                <div class="gallery-item" data-caption="तिब्बती संस्कृति">
+                    <img src="./images/image4.jpg" alt="Tibetan Culture" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">तिब्बती संस्कृति</span></div>
+                </div>
+
+                <div class="gallery-item" data-caption="पाठ का सारांश">
+                    <img src="./images/image5.jpg" alt="Summary" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">सारांश लेखन</span></div>
+                </div>
+
+                <div class="gallery-item" data-caption="निष्कर्ष">
+                    <img src="./images/image6.jpg" alt="Conclusion" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">निष्कर्ष</span></div>
+                </div>
+                
+                 </div>
+            
+            <p style="text-align:center; margin-top:20px; font-size:0.9rem; color:var(--text-muted);">
+                (नोट: गैलरी में और तस्वीरें जोड़ने के लिए HTML में 'Gallery Item' वाले भाग को कॉपी करें)
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <span class="footer-logo">हिंदी परियोजना</span>
+            <p>
+                "सैर कर दुनिया की गाफ़िल ज़िन्दगानी फिर कहाँ,<br>ज़िन्दगानी गर रही तो नौजवानी फिर कहाँ।"
+                <br>- राहुल सांकृत्यायन (घुमक्कड़ शास्त्र)
+            </p>
+            <div class="footer-divider"></div>
+            <p class="copyright">
+                © 2026 विद्यालय परियोजना | तनीषा कुमारी<br>
+                <span style="font-size:0.8rem; opacity:0.6;">Designed with passion</span>
+            </p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-lb" id="close-lb">&times;</span>
+        <img src="" id="lb-img" alt="Enlarged Image">
+    </div>
+
+    <script>
+        // 1. Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 600);
+        });
+
+        // 2. Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // 3. Lightbox Logic
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const closeLb = document.getElementById('close-lb');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lbImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Stop scrolling
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        closeLb.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    </script>
+</body>
+</html>
