@@ -1,408 +1,430 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>मेरी हिंदी परियोजना — World's Best Portfolio (Single File)</title>  <!-- Google Fonts -->  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">  <style>
-    :root{
-      --accent:#7a1f3d; --accent-2:#b33b56; --bg-1:#fff6f8; --bg-2:#fff0f3; --glass: rgba(255,255,255,0.88);
-      --muted:#4a1c2f; --shadow: 0 18px 45px rgba(122,31,61,0.08); --radius:14px; --maxw:1200px; --success:#2a9d8f;
-      --glass-border: rgba(122,31,61,0.06);
-    }
-    [data-theme="dark"]{ --bg-1:#0f0b0d; --bg-2:#140912; --glass: rgba(255,255,255,0.03); --muted:#f3d6db; --accent:#ff9bb2; --accent-2:#ff6f97; --shadow:0 20px 60px rgba(0,0,0,0.6); --glass-border: rgba(255,255,255,0.05); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hindi Project Portfolio - A showcase of literature and culture">
+    <title>हिंदी परियोजना | रचनात्मक पोर्टफोलियो</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Rozha+One&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{font-family:'Poppins', 'Hind', system-ui, Arial; background:linear-gradient(135deg,var(--bg-1),var(--bg-2)); color:var(--muted); -webkit-font-smoothing:antialiased; line-height:1.45; scroll-behavior:smooth;}
+    <style>
+        /* --- 1. VARIABLES & RESET --- */
+        :root {
+            --primary: #8E2D46; /* Deep Maroon */
+            --primary-light: #C45C75;
+            --accent: #FFD700; /* Gold */
+            --bg-gradient: radial-gradient(circle at 10% 20%, rgb(255, 241, 244) 0%, rgb(255, 228, 235) 90%);
+            --glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-main: #2D1B22;
+            --text-muted: #634C54;
+            --shadow: 0 8px 32px 0 rgba(142, 45, 70, 0.1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
 
-    /* Top navigation */
-    header{position:fixed;inset:12px auto auto 12px;right:12px;display:flex;gap:10px;align-items:center;z-index:999}
-    nav{display:flex;gap:8px;align-items:center;background:var(--glass);padding:8px;border-radius:999px;backdrop-filter:blur(8px);border:1px solid var(--glass-border);box-shadow:var(--shadow)}
-    nav a{padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:600}
-    nav a:hover{color:var(--accent)}
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
-    .controls{display:flex;gap:6px;align-items:center}
-    .btn{border:0;background:transparent;padding:8px;border-radius:8px;cursor:pointer;font-weight:700}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
 
-    /* container */
-    .container{max-width:var(--maxw);margin:96px auto;padding:18px}
+        h1, h2, h3, h4 { font-family: 'Rozha One', serif; color: var(--primary); font-weight: 400; }
+        
+        /* --- 2. PRELOADER --- */
+        #preloader {
+            position: fixed; inset: 0; background: #fff1f4; z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            transition: opacity 0.6s ease;
+        }
+        .loader-text { font-family: 'Rozha One'; font-size: 2rem; color: var(--primary); animation: pulse 2s infinite; }
+        .spinner {
+            width: 40px; height: 40px; border: 4px solid var(--primary-light);
+            border-top: 4px solid var(--primary); border-radius: 50%; margin-top: 15px;
+            animation: spin 1s linear infinite;
+        }
 
-    /* Hero */
-    .hero{display:grid;grid-template-columns:1fr 380px;gap:18px;align-items:center}
-    .card{background:var(--glass);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
-    .title{font-size:2.4rem;font-weight:800;color:var(--accent);letter-spacing:0.6px}
-    .subtitle{margin-top:8px;color:var(--muted);font-weight:600}
-    .meta{margin-top:12px}
+        /* --- 3. NAVIGATION --- */
+        nav {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 800px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 12px 30px; border-radius: 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--glass-border);
+            z-index: 100; transition: var(--transition);
+        }
+        nav .logo { font-weight: 700; color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; transition: color 0.3s; position: relative; }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+            background: var(--primary); transition: width 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        nav a:hover::after { width: 100%; }
 
-    /* animated flourish */
-    .tagline{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(122,31,61,0.08), rgba(179,59,86,0.06));margin-top:8px;font-weight:700}
+        /* Mobile Menu Button */
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
 
-    /* profile */
-    .profile{display:flex;flex-direction:column;align-items:center;gap:10px}
-    .avatar{width:140px;height:140px;border-radius:18px;background:linear-gradient(180deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:white;font-weight:800;font-size:1.8rem;box-shadow:0 12px 40px rgba(122,31,61,0.14)}
-    .small{font-size:0.95rem;color:var(--muted)}
+        /* --- 4. LAYOUT UTILITIES --- */
+        section { padding: 100px 8%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        
+        /* Reveal Animation Classes */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-    /* fancy cover */
-    .cover{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-    .cover .big{font-size:3.2rem;font-weight:900;line-height:1}
-    .cover .sub{font-size:1.05rem;color:var(--muted)}
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(142, 45, 70, 0.15); }
 
-    /* sections */
-    section{margin-top:18px}
-    h2{color:var(--accent);margin-bottom:10px;text-align:center}
+        /* --- 5. HERO SECTION --- */
+        #home {
+            text-align: center;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238e2d46' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            padding-top: 150px;
+        }
+        .hero-badge {
+            display: inline-block; padding: 8px 16px; background: rgba(142, 45, 70, 0.1);
+            color: var(--primary); border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 20px;
+        }
+        .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.2; margin-bottom: 20px; }
+        .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; }
+        
+        .student-info {
+            display: inline-flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+            border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px;
+        }
+        .info-item h4 { font-size: 0.9rem; font-family: 'Poppins'; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+        .info-item p { font-size: 1.2rem; font-weight: 600; color: var(--primary); }
 
-    /* Projects */
-    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-    .proj{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.9),transparent);border:1px solid rgba(122,31,61,0.04);transition:transform .25s ease}
-    .proj:hover{transform:translateY(-6px)}
-    .proj h3{margin-bottom:8px}
-    .proj p{font-size:0.95rem;color:var(--muted)}
-    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-    .tag{background:rgba(122,31,61,0.08);padding:6px 8px;border-radius:999px;font-weight:700}
+        /* --- 6. INDEX SECTION (Grid) --- */
+        .index-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px;
+        }
+        .index-item {
+            display: flex; align-items: center; gap: 15px; padding: 20px;
+            background: white; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);
+            cursor: pointer; transition: var(--transition);
+        }
+        .index-item:hover { transform: translateX(10px); border-color: var(--primary-light); }
+        .idx-num {
+            font-family: 'Rozha One'; font-size: 1.5rem; color: rgba(142, 45, 70, 0.2);
+        }
 
-    /* Achievements / highlights */
-    .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-    .highlight{padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));border:1px solid rgba(122,31,61,0.03)}
+        /* --- 7. AUTHOR TIMELINE --- */
+        .timeline { position: relative; max-width: 800px; margin: 40px auto; padding-left: 30px; border-left: 2px solid rgba(142, 45, 70, 0.2); }
+        .event { margin-bottom: 40px; position: relative; padding-left: 30px; }
+        .event::before {
+            content: ''; position: absolute; left: -36px; top: 5px; width: 14px; height: 14px;
+            background: var(--primary); border-radius: 50%; border: 4px solid #fff1f4;
+        }
+        .event-date { font-weight: 600; color: var(--primary); margin-bottom: 5px; display: block; }
+        .event h3 { font-size: 1.5rem; margin-bottom: 10px; font-family: 'Poppins'; font-weight: 600; }
+        .event p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* Skills */
-    .skills{display:flex;gap:12px;flex-wrap:wrap}
-    .skill{flex:1;min-width:160px}
-    .bar{height:12px;border-radius:99px;background:rgba(0,0,0,0.06);overflow:hidden}
-    .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .9s cubic-bezier(.2,.9,.3,1)}
+        /* --- 8. GALLERY (Masonry-ish) --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;
+        }
+        .gallery-item {
+            position: relative; border-radius: 16px; overflow: hidden; height: 300px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;
+        }
+        .gallery-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            opacity: 0; transition: 0.4s ease; display: flex; align-items: flex-end; padding: 20px;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .caption-text { color: white; font-weight: 500; font-size: 1.1rem; }
 
-    /* gallery */
-    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .thumb{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;background:#fff;border:1px solid rgba(0,0,0,0.04);min-height:100px;display:flex;align-items:center;justify-content:center}
-    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .thumb .cap{position:absolute;left:8px;bottom:8px;background:linear-gradient(90deg,rgba(0,0,0,0.5),transparent);color:white;padding:6px;border-radius:8px;font-weight:600}
-    .thumb .slotnum{position:absolute;right:8px;top:8px;background:rgba(0,0,0,0.25);color:white;padding:4px 8px;border-radius:8px;font-weight:700;font-size:0.85rem}
+        /* --- 9. LIGHTBOX --- */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.9);
+            display: none; justify-content: center; align-items: center; opacity: 0;
+            transition: opacity 0.3s ease; backdrop-filter: blur(5px);
+        }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-height: 85vh; max-width: 90vw; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        .close-lb { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; }
 
-    /* lightbox */
-    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);z-index:2000}
-    .lightbox.open{display:flex}
-    .viewer{max-width:92%;max-height:86%;border-radius:12px;overflow:hidden}
-    .viewer img{max-width:100%;max-height:78vh;display:block}
+        /* --- 10. FOOTER --- */
+        footer {
+            background: var(--primary); color: white; padding: 60px 8% 30px; text-align: center;
+        }
+        .footer-content { max-width: 600px; margin: 0 auto; }
+        .footer-logo { font-family: 'Rozha One'; font-size: 2rem; margin-bottom: 20px; display: block; }
+        .footer-divider { height: 1px; background: rgba(255,255,255,0.2); margin: 30px 0; }
+        .copyright { font-size: 0.9rem; opacity: 0.8; }
 
-    /* timeline */
-    .timeline{display:flex;flex-direction:column;gap:12px}
-    .step{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.9),transparent);border:1px solid rgba(122,31,61,0.04)}
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { bottom: 20px; top: auto; width: 90%; justify-content: center; padding: 15px 25px; }
+            nav .logo, nav ul { display: none; } /* Could add mobile hamburger, keeping simple for now */
+            nav ul { display: flex; gap: 20px; font-size: 0.8rem; }
+            .hero-title { font-size: 2.2rem; }
+            .student-info { gap: 20px; }
+            section { padding: 80px 6%; }
+        }
+        
+        /* Animation Keyframes */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
 
-    /* contact */
-    .contact{display:grid;grid-template-columns:1fr 320px;gap:12px}
-    .form input,.form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
+    <div id="preloader">
+        <div class="loader-text">नमस्कार</div>
+        <div class="spinner"></div>
+    </div>
 
-    footer{text-align:center;padding:18px;margin-top:18px;color:var(--muted)}
-
-    /* small screens */
-    @media (max-width:1100px){.gallery{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr}.contact{grid-template-columns:1fr}.cover .big{font-size:2.2rem}}
-    @media (max-width:720px){.gallery{grid-template-columns:repeat(2,1fr)}.thumb{min-height:90px}.avatar{width:110px;height:110px}}
-
-    /* print */
-    @media print{header, .btn, .controls, .lightbox{display:none} body{background:white} .card{box-shadow:none;border:0}}
-
-    /* subtle entrance */
-    .reveal{opacity:1;transform:none;transition:all .65s cubic-bezier(.2,.9,.3,1)}
-    .reveal.in{opacity:1;transform:none}
-
-    /* floating decor */
-    .float-decor{position:absolute;right:8%;top:6%;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent);opacity:0.9;filter:blur(12px);pointer-events:none}
-  </style></head>
-<body>  <!-- Top controls (fixed) -->  <header>
-    <nav role="navigation" aria-label="मुख्य नेविगेशन">
-      <a href="#cover">मुखपृष्ठ</a>
-      <a href="#projects">प्रोजेक्ट</a>
-      <a href="#gallery">चित्र</a>
-      <a href="#contact">संपर्क</a>
+    <nav>
+        <a href="#home" class="logo"><i class="ph ph-book-bookmark"></i> पोर्टफोलियो</a>
+        <ul>
+            <li><a href="#home">मुखपृष्ठ</a></li>
+            <li><a href="#index">अनुक्रमणिका</a></li>
+            <li><a href="#author">लेखक परिचय</a></li>
+            <li><a href="#gallery">चित्र दीर्घा</a></li>
+        </ul>
     </nav>
-    <div class="controls">
-      <button id="themeBtn" class="btn" title="थीम बदलें">🌓</button>
-      <button id="editBtn" class="btn primary" title="अपना विवरण भरें">मेरी जानकारी अपडेट करें</button>
-      <button id="certBtn" class="btn" title="प्रमाण पत्र बनाएँ">🏅 प्रमाण पत्र</button>
-    </div>
-  </header>  <div class="float-decor" aria-hidden="true"></div>  <main class="container" id="cover">
-    <!-- HERO / COVER -->
-    <section class="hero reveal">
-      <div class="card cover">
-        <div class="big">मेरी हिंदी परियोजना</div>
-        <div class="sub">एक संक्षिप्त और सुंदर प्रस्तुति — मैंने स्वयं बनाया है।</div>
-        <div class="tagline">Student POV • Creative • Printed-ready</div><div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-      <button id="printBtn" class="btn primary">प्रिंट / PDF</button>
-      <button id="downloadResume" class="btn">Resume डाउनलोड</button>
-      <button id="shareBtn" class="btn">स्टेट सेव करें</button>
-    </div>
 
-    <div class="meta" style="margin-top:18px">नाम: <strong id="sName">____</strong> • कक्षा: <strong id="sClass">____</strong> • रोल: <strong id="sRoll">____</strong></div>
+    <section id="home">
+        <div class="container reveal">
+            <span class="hero-badge">हिंदी परियोजना कार्य (2025-26)</span>
+            <h1 class="hero-title">साहित्य और समाज का<br><span style="color:var(--primary-light)">अटूट बंधन</span></h1>
+            <p class="hero-subtitle">
+                मुंशी प्रेमचंद की कहानियों और भारतीय संस्कृति की गहराई को प्रदर्शित करने वाला एक व्यापक अध्ययन।
+            </p>
 
-    <p style="margin-top:12px;color:var(--muted)">यह पोर्टफोलियो खासतौर पर विद्यार्थियों के लिए बनाया गया है — स्क्रीन पर दिखाने से लेकर प्रिंट/पीडीएफ में submit करने तक के लिये।</p>
-  </div>
-
-  <aside class="card profile">
-    <div class="avatar" id="avatar">मैं</div>
-    <div id="authorLabel" style="font-weight:800">मैं (अपना नाम भरें)</div>
-    <div class="small">स्टूडेंट • अपनी जानकारी अपडेट करें</div>
-
-    <div style="margin-top:12px;display:flex;gap:8px">
-      <label class="btn" for="imgInput">📷 अवतार बदलें</label>
-      <input id="imgInput" type="file" accept="image/*" style="display:none">
-      <button id="resetBtn" class="btn">रीसेट</button>
-    </div>
-  </aside>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="reveal">
-  <h2>प्रोजेक्ट्स और अनुभाग</h2>
-  <div class="projects" id="projectsGrid">
-    <!-- JS populated -->
-  </div>
-  <div style="margin-top:14px;display:flex;gap:10px">
-    <button id="addProject" class="btn primary">नया प्रोजेक्ट जोड़ें</button>
-    <button id="clearProjects" class="btn">सारे प्रोजेक्ट हटाएँ</button>
-  </div>
-</section>
-
-<!-- Highlights / Achievements -->
-<section class="reveal">
-  <h2>हाइलाइट्स / मैंने क्या सीखा</h2>
-  <div class="card highlights" id="highlights">
-    <!-- JS populated -->
-  </div>
-</section>
-
-<!-- Skills / timeline -->
-<section class="reveal">
-  <h2>कौशल और समयरेखा (Timeline)</h2>
-  <div class="card" style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
-    <div style="flex:1;min-width:260px">
-      <h3>कौशल</h3>
-      <div class="skills" id="skills"></div>
-    </div>
-    <div style="flex:1;min-width:260px">
-      <h3>समयरेखा</h3>
-      <div class="timeline" id="timeline"></div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY (13 slots) -->
-<section id="gallery" class="reveal">
-  <h2>चित्र दीर्घा — 13 स्लॉट्स</h2>
-  <div class="card">
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-      <label for="galleryInput" class="btn primary">अपनी फ़ोटो चुनें (अधिकतम 13)</label>
-      <input id="galleryInput" type="file" accept="image/*" multiple style="display:none">
-      <button id="clearGallery" class="btn">सभी हटाएँ</button>
-      <div style="margin-left:auto;color:var(--muted);font-weight:600">कुल स्लॉट: 13 — अपलोड करें या स्लॉट पर क्लिक कर के बदलें</div>
-    </div>
-
-    <div class="gallery" id="galleryGrid" aria-live="polite">
-      <noscript>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-          <div class="thumb"><img src="images/images1.jpg" alt="स्लॉट 1"><div class="cap">स्लॉट 1</div></div>
-          <div class="thumb"><img src="images/images2.jpg" alt="स्लॉट 2"><div class="cap">स्लॉट 2</div></div>
-          <div class="thumb"><img src="images/images3.jpg" alt="स्लॉट 3"><div class="cap">स्लॉट 3</div></div>
-          <div class="thumb"><img src="images/images4.jpg" alt="स्लॉट 4"><div class="cap">स्लॉट 4</div></div>
-          <div class="thumb"><img src="images/images5.jpg" alt="स्लॉट 5"><div class="cap">स्लॉट 5</div></div>
-          <div class="thumb"><img src="images/images6.jpg" alt="स्लॉट 6"><div class="cap">स्लॉट 6</div></div>
-          <div class="thumb"><img src="images/images7.jpg" alt="स्लॉट 7"><div class="cap">स्लॉट 7</div></div>
-          <div class="thumb"><img src="images/images8.jpg" alt="स्लॉट 8"><div class="cap">स्लॉट 8</div></div>
-          <div class="thumb"><img src="images/images9.jpg" alt="स्लॉट 9"><div class="cap">स्लॉट 9</div></div>
-          <div class="thumb"><img src="images/images10.jpg" alt="स्लॉट 10"><div class="cap">स्लॉट 10</div></div>
-          <div class="thumb"><img src="images/images11.jpg" alt="स्लॉट 11"><div class="cap">स्लॉट 11</div></div>
-          <div class="thumb"><img src="images/images12.jpg" alt="स्लॉट 12"><div class="cap">स्लॉट 12</div></div>
-          <div class="thumb"><img src="images/images13.jpg" alt="स्लॉट 13"><div class="cap">स्लॉट 13</div></div>
+            <div class="glass-card student-info">
+                <div class="info-item">
+                    <h4>नाम</h4>
+                    <p>अमित शर्मा</p> </div>
+                <div class="info-item">
+                    <h4>कक्षा</h4>
+                    <p>दसवीं 'अ'</p> </div>
+                <div class="info-item">
+                    <h4>अनुक्रमांक</h4>
+                    <p>21</p> </div>
+                <div class="info-item">
+                    <h4>विषय</h4>
+                    <p>हिंदी (ब)</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 50px;">
+                <i class="ph ph-arrow-down" style="font-size: 2rem; color: var(--primary); animation: pulse 2s infinite;"></i>
+            </div>
         </div>
-      </noscript>
-      <!-- 13 thumbs inserted by JS -->
-    </div>
+    </section>
 
-    <p style="text-align:center;margin-top:12px;color:var(--muted);font-weight:600">टिप: हर स्लाइड में कैप्शन जोड़ें — प्रिंट में सुंदर दिखेगा।</p>
-  </div>
-</section>
-
-<!-- Contact -->
-<section id="contact" class="reveal">
-  <h2>संपर्क</h2>
-  <div class="card contact">
-    <div>
-      <p class="small">मुझे संदेश भेजें — यह लोकल demo है (सर्वर नहीं)।</p>
-      <form id="contactForm" class="form" onsubmit="return false">
-        <input id="cName" placeholder="आपका नाम" required>
-        <input id="cEmail" placeholder="ईमेल (optional)">
-        <textarea id="cMsg" rows="4" placeholder="संदेश"></textarea>
-        <div style="margin-top:8px;display:flex;gap:8px">
-          <button id="sendMsg" class="btn primary">संदेश भेजें</button>
-          <button id="savePDF" class="btn">सहेजें (PDF)</button>
+    <section id="index">
+        <div class="container">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 50px;">परियोजना की रूपरेखा</h2>
+            
+            <div class="index-grid reveal">
+                <div class="index-item">
+                    <span class="idx-num">01</span>
+                    <div>
+                        <strong>प्रस्तावना</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">विषय का परिचय और महत्व</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">02</span>
+                    <div>
+                        <strong>मुंशी प्रेमचंद</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">जीवन परिचय और कृतियाँ</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">03</span>
+                    <div>
+                        <strong>'गोदान' विश्लेषण</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">पात्र परिचय और सारांश</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">04</span>
+                    <div>
+                        <strong>सामाजिक समस्याएँ</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">दहेज प्रथा और गरीबी</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">05</span>
+                    <div>
+                        <strong>निष्कर्ष</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">सीख और व्यक्तिगत विचार</p>
+                    </div>
+                </div>
+                <div class="index-item">
+                    <span class="idx-num">06</span>
+                    <div>
+                        <strong>संदर्भ सूची</strong>
+                        <p style="font-size:0.85rem; color:var(--text-muted)">पुस्तकों और वेबसाइटों की सूची</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </form>
+    </section>
+
+    <section id="author" style="background: white;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" class="reveal">
+                <span class="hero-badge">उपन्यास सम्राट</span>
+                <h2>मुंशी प्रेमचंद: एक दृष्टि</h2>
+            </div>
+
+            <div class="glass-card reveal">
+                <div class="timeline">
+                    <div class="event">
+                        <span class="event-date">31 जुलाई 1880</span>
+                        <h3>जन्म</h3>
+                        <p>वाराणसी के निकट लमही गाँव में एक कायस्थ परिवार में जन्म हुआ। असली नाम धनपत राय श्रीवास्तव था।</p>
+                    </div>
+                    <div class="event">
+                        <span class="event-date">1910 - 1915</span>
+                        <h3>साहित्यिक शुरुआत</h3>
+                        <p>'सोजे वतन' जैसी रचनाओं से शुरुआत की। स्वतंत्रता संग्राम के प्रभाव में आकर सरकारी नौकरी से त्यागपत्र दिया।</p>
+                    </div>
+                    <div class="event">
+                        <span class="event-date">1936</span>
+                        <h3>गोदान और महाप्रयाण</h3>
+                        <p>अपने जीवन की सर्वश्रेष्ठ रचना 'गोदान' पूर्ण की। 8 अक्टूबर 1936 को इस महान लेखक का निधन हुआ।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:40px;" class="reveal">
+                <div>
+                    <h2>चित्र दीर्घा</h2>
+                    <p style="color:var(--text-muted)">परियोजना से जुड़ी कुछ झलकियाँ</p>
+                </div>
+                <button onclick="window.print()" style="padding:10px 20px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-family:'Poppins';">
+                    <i class="ph ph-printer"></i> Save as PDF
+                </button>
+            </div>
+
+            <div class="gallery-grid reveal">
+                <div class="gallery-item" data-caption="परियोजना का मुखपृष्ठ">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=800" alt="Cover" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">मुखपृष्ठ</span></div>
+                </div>
+                <div class="gallery-item" data-caption="लेखक का चित्र">
+                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800" alt="Author" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">लेखक परिचय</span></div>
+                </div>
+                <div class="gallery-item" data-caption="हस्तलिखित निबंध">
+                    <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=800" alt="Essay" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">निबंध लेखन</span></div>
+                </div>
+                 <div class="gallery-item" data-caption="निष्कर्ष पृष्ठ">
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=800" alt="Conclusion" loading="lazy">
+                    <div class="gallery-overlay"><span class="caption-text">निष्कर्ष</span></div>
+                </div>
+                 </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <span class="footer-logo">हिंदी परियोजना</span>
+            <p>
+                "साहित्य जीवन की आलोचना है।" - प्रेमचंद
+            </p>
+            <div class="footer-divider"></div>
+            <p class="copyright">
+                © 2026 विद्यालय परियोजना | छात्र द्वारा निर्मित<br>
+                <span style="font-size:0.8rem; opacity:0.6;">Designed with passion</span>
+            </p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-lb" id="close-lb">&times;</span>
+        <img src="" id="lb-img" alt="Enlarged Image">
     </div>
 
-    <aside style="padding-left:12px;border-left:1px solid rgba(0,0,0,0.03)">
-      <h3>मेरी जानकारी</h3>
-      <p class="small">नाम: <span id="infoName">__</span></p>
-      <p class="small">कक्षा: <span id="infoClass">__</span></p>
-      <p class="small">रोल: <span id="infoRoll">__</span></p>
-    </aside>
-  </div>
-</section>
+    <script>
+        // 1. Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 600);
+        });
 
-<footer>© मेरी हिंदी परियोजना — बनाया और तैयार किया (Student POV). सुझाव दें और मैं और बेहतर कर दूँगा!</footer>
+        // 2. Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
 
-  </main>  <!-- Lightbox -->  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="छवि पूर्वावलोकन">
-    <div class="viewer" role="document">
-      <img id="lbImg" src="" alt="">
-    </div>
-  </div>  <!-- dialogs -->  <dialog id="editDialog">
-    <form method="dialog" style="padding:12px;min-width:320px">
-      <h3>अपना विवरण भरें</h3>
-      <label style="display:block;margin-top:10px">नाम <input id="inName" type="text" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid var(--glass-border)"></label>
-      <label style="display:block;margin-top:10px">कक्षा <input id="inClass" type="text" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid var(--glass-border)"></label>
-      <label style="display:block;margin-top:10px">रोल <input id="inRoll" type="text" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid var(--glass-border)"></label>
-      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
-        <button id="saveInfo" class="btn primary">सहेजें</button>
-        <button id="cancelEdit" class="btn">रद्द</button>
-      </div>
-    </form>
-  </dialog>  <script>
-    /* ======= state + persistence ======= */
-    const qs = (s,r=document)=> r.querySelector(s);
-    const qsa = (s,r=document)=> Array.from((r||document).querySelectorAll(s));
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
 
-    // state stored in localStorage
-    const DEFAULT = {
-      info:{name:'आपका नाम',cls:'कक्षा',roll:'रोल'},
-      projects:[
-        {title:'परियोजना का परिचय', desc:'मैंने इस परियोजना में हिंदी भाषा और मुंशी प्रेमचंद की रचनाओं का अध्ययन किया।', tags:['परिचय','साहित्य']},
-        {title:'लेखक परिचय', desc:'मुंशी प्रेमचंद पर संक्षेप टिप्पणी और उनके प्रमुख विचार।', tags:['लेखक','Premchand']}
-      ],
-      skills:[{name:'हिंदी लेखन',v:92},{name:'शोध',v:88},{name:'प्रस्तुति',v:80}],
-      highlights:[
-        'मैंने प्रतियोगिता में भाग लिया।',
-        'प्रोजेक्ट समय पर पूरा किया।'
-      ],
-      // 13 gallery slots (placeholders)
-      gallery: Array.from({length:13}, (_,i)=>({src:`images/images${i+1}.jpg`, caption:`स्लॉट ${i+1}`})),
-      theme:'light'
-    };
+        // 3. Lightbox Logic
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const closeLb = document.getElementById('close-lb');
 
-    const state = JSON.parse(localStorage.getItem('portfolio_v2') || 'null') || DEFAULT;
-    function save(){ localStorage.setItem('portfolio_v2', JSON.stringify(state)); }
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lbImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Stop scrolling
+            });
+        });
 
-    // apply theme
-    if(state.theme === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
 
-    /* ======= render helpers ======= */
-    function renderInfo(){ qs('#sName').textContent = state.info.name; qs('#sClass').textContent = state.info.cls; qs('#sRoll').textContent = state.info.roll; qs('#authorLabel').textContent = state.info.name; qs('#infoName').textContent = state.info.name; qs('#infoClass').textContent = state.info.cls; qs('#infoRoll').textContent = state.info.roll; qs('#avatar').textContent = (state.info.name||'मैं').split(' ').map(x=>x[0]||'').slice(0,2).join(''); }
-
-    /* projects */
-    function renderProjects(){ const grid = qs('#projectsGrid'); grid.innerHTML=''; state.projects.forEach((p,i)=>{ const el = document.createElement('div'); el.className='proj card'; el.innerHTML = `<h3 contenteditable data-i='${i}'>${p.title}</h3><p contenteditable data-i='${i}'>${p.desc}</p><div class='tags'>${p.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}</div><div style='margin-top:10px'><button class='btn' data-del='${i}'>हटाएँ</button></div>`; grid.appendChild(el); });
-      // inline edit handler
-      qsa('[contenteditable]').forEach(el=> el.addEventListener('input', e=>{ const idx = e.target.dataset.i; const node = e.target; if(node.tagName==='H3') state.projects[idx].title = node.textContent.trim(); else state.projects[idx].desc = node.textContent.trim(); save(); }));
-      qsa('[data-del]').forEach(b=> b.addEventListener('click', e=>{ const i = +e.target.dataset.del; state.projects.splice(i,1); save(); renderProjects(); }));
-    }
-
-    /* skills */
-    function renderSkills(){ const wrap = qs('#skills'); wrap.innerHTML=''; state.skills.forEach(s=>{ const d=document.createElement('div'); d.className='skill'; d.innerHTML = `<div style='font-weight:700'>${s.name}</div><div class='bar'><i style='width:${s.v}%'></i></div>`; wrap.appendChild(d); }); }
-
-    /* highlights */
-    function renderHighlights(){ const h = qs('#highlights'); h.innerHTML=''; state.highlights.forEach(txt=>{ const el = document.createElement('div'); el.className='highlight'; el.textContent = txt; h.appendChild(el); }); }
-
-    /* timeline */
-    function renderTimeline(){ const t = qs('#timeline'); t.innerHTML=''; const steps = ['विचार','शोध','रचना','संपादन','प्रस्तुति']; steps.forEach((s,i)=>{ const el = document.createElement('div'); el.className='step'; el.innerHTML = `<strong>कदम ${i+1}:</strong> ${s}`; t.appendChild(el); }); }
-
-    /* gallery: exactly 13 slots */
-    function renderGallery(){ const g = qs('#galleryGrid'); g.innerHTML=''; state.gallery.forEach((it,idx)=>{ const d = document.createElement('div'); d.className='thumb'; d.dataset.index = idx; d.innerHTML = `<div class='slotnum'>#${idx+1}</div><img src='${it.src}' alt='${it.caption||"image"}'><div class='cap'>${it.caption||''}</div>`; g.appendChild(d);
-        d.addEventListener('click', ()=> openLightbox(idx));
-        // right-click to replace
-        d.addEventListener('contextmenu', (e)=>{ e.preventDefault(); replaceSlot(idx); });
-    }); }
-
-    /* Lightbox */
-    const lb = qs('#lightbox'), lbImg = qs('#lbImg');
-    function openLightbox(i){ lbImg.src = state.gallery[i].src; lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); }
-    function closeLightbox(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src=''; }
-    lb.addEventListener('click', e=>{ if(e.target===lb) closeLightbox(); }); document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
-
-    /* slot replacement: open file chooser then replace that slot */
-    function replaceSlot(idx){ const inp = document.createElement('input'); inp.type='file'; inp.accept='image/*'; inp.onchange = (ev)=>{ const f = ev.target.files[0]; if(!f) return; const url = URL.createObjectURL(f); state.gallery[idx] = {src:url, caption:f.name}; save(); renderGallery(); }; inp.click(); }
-
-    /* handle gallery input: fill empty or replace from start up to 13 */
-    qs('#galleryInput').addEventListener('change', e=>{
-      const files = Array.from(e.target.files||[]);
-      let slotIdx = 0;
-      for(let i=0;i<state.gallery.length && files.length>0;i++){
-        // find first slot that still holds default image path starting with images/image or previously replaced? We'll just fill sequentially.
-        const f = files.shift(); if(!f) break; const url = URL.createObjectURL(f); state.gallery[i] = {src:url, caption:f.name};
-      }
-      save(); renderGallery(); e.target.value='';
-    });
-
-    qs('#clearGallery').addEventListener('click', ()=>{ if(confirm('सभी 13 स्लॉट खाली करना चाहते हैं?')){ state.gallery = Array.from({length:13}, (_,i)=>({src:`images/image${i+1}.jpg`, caption:`स्लॉट ${i+1}`})); save(); renderGallery(); } });
-
-    /* adding / clearing projects */
-    qs('#addProject').addEventListener('click', ()=>{ state.projects.push({title:'नया प्रोजेक्ट', desc:'विवरण दर्ज करें', tags:['नया']}); save(); renderProjects(); });
-    qs('#clearProjects').addEventListener('click', ()=>{ if(confirm('सभी प्रोजेक्ट हटाना है?')){ state.projects = []; save(); renderProjects(); } });
-
-    /* edit info dialog */
-    const editBtn = qs('#editBtn'), editDialog = qs('#editDialog');
-    editBtn.addEventListener('click', ()=>{ qs('#inName').value = state.info.name; qs('#inClass').value = state.info.cls; qs('#inRoll').value = state.info.roll; editDialog.showModal(); });
-    qs('#cancelEdit').addEventListener('click', ()=> editDialog.close());
-    qs('#saveInfo').addEventListener('click', ()=>{ state.info.name = qs('#inName').value || state.info.name; state.info.cls = qs('#inClass').value || state.info.cls; state.info.roll = qs('#inRoll').value || state.info.roll; save(); renderInfo(); editDialog.close(); });
-
-    /* Avatar change */
-    qs('#imgInput').addEventListener('change', e=>{ const f = e.target.files[0]; if(!f) return; const url = URL.createObjectURL(f); // set as first gallery image and avatar
-      state.gallery[0] = {src:url, caption:f.name}; save(); renderGallery(); // also set avatar bg as image (small)
-      qs('#avatar').style.backgroundImage = `url(${url})`; qs('#avatar').textContent=''; });
-
-    /* resume download (text) */
-    qs('#downloadResume').addEventListener('click', ()=>{
-      const text = `नाम: ${state.info.name}
-कक्षा: ${state.info.cls}
-रोल: ${state.info.roll}
-
-Projects:
-` + state.projects.map(p=>`- ${p.title}: ${p.desc}`).join('
-');
-      const blob = new Blob([text], {type:'text/plain'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='Resume.txt'; a.click(); URL.revokeObjectURL(url);
-    });
-
-    /* share/save state */
-    qs('#shareBtn').addEventListener('click', ()=>{ save(); alert('State saved locally — आप इसे बाद में export कर सकते हैं।'); });
-
-    /* print */
-    qs('#printBtn').addEventListener('click', ()=>{ window.print(); });
-
-    /* certificate generation */
-    qs('#certBtn').addEventListener('click', ()=>{
-      const w = window.open('', '_blank');
-      const name = state.info.name || '________';
-      const title = 'प्रमाण पत्र';
-      const html = `<!doctype html><html><head><meta charset='utf-8'><title>प्रमाण पत्र</title><style>body{font-family:Arial, sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:linear-gradient(180deg,#fff6f8,#fff0f3)}.card{padding:40px;border:6px solid #fff;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,0.12);background:#fff;text-align:center}h1{color:${state.theme==='dark'?'#ff9bb2':'#7a1f3d'};margin-bottom:6px}p{color:#4a1c2f}</style></head><body><div class='card'><h1>${title}</h1><p>यह प्रमाणित किया जाता है कि</p><h2 style='margin:6px 0'>${name}</h2><p>ने अपनी हिंदी परियोजना सफलतापूर्वक स्वयं तैयार की।</p><p style='margin-top:16px'>दिनांक: ${new Date().toLocaleDateString()}</p><p style='margin-top:30px'>_____<br>प्रवक्ता / शिक्षक</p></div></body></html>`;w.document.write(html); w.document.close();
-  setTimeout(()=> w.print(), 500);
-});
-
-/* theme toggle */
-qs('#themeBtn').addEventListener('click', ()=>{ const cur = document.documentElement.getAttribute('data-theme'); const nxt = cur==='dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', nxt); state.theme = nxt; save(); });
-
-/* contact demo */
-qs('#sendMsg').addEventListener('click', ()=>{ alert('धन्यवाद! (Demo) — यह लोकल preview है।'); });
-qs('#savePDF').addEventListener('click', ()=>{ window.print(); });
-
-/* initial render */
-renderInfo(); renderProjects(); renderSkills(); renderHighlights(); renderTimeline(); renderGallery();
-
-// reveal on scroll
-const reveals = qsa('.reveal'); const io = new IntersectionObserver(entries=>{ entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); }); }, {threshold:0.12}); reveals.forEach(r=> io.observe(r));
-
-// accessibility tiny
-qsa('button, [role="button"]').forEach(b=> b.addEventListener('keyup', e=>{ if(e.key==='Enter') b.click(); }));
-
-// ensure exactly 13 gallery slots
-// any attempt to add beyond 13 ignored
-// (handled by replacing sequentially)
-
-  </script>
+        closeLb.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) closeLightbox();
+        });
+    </script>
 </body>
 </html>
