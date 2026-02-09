@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hindi Project - Lhasa Ki Ore - Tanisha Kumari">
+    <title>हिंदी परियोजना | ल्हासा की ओर</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;600&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- 1. SETTINGS & COLORS --- */
+        :root {
+            --primary: #800000; /* Deep Maroon/Rust */
+            --primary-dark: #4a0000;
+            --accent: #D4AF37; /* Royal Gold */
+            --bg-color: #FFF8F0; /* Cream/Off-White */
+            --surface: #FFFFFF;
+            --text-main: #1a1a1a;
+            --text-light: #555555;
+            
+            /* Glass Effect */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow: 0 10px 40px rgba(128, 0, 0, 0.1);
+            --transition: all 0.4s ease-out;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 100% 0%, #ffeec2 0%, transparent 20%), radial-gradient(circle at 0% 100%, #ffeec2 0%, transparent 20%);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3 { 
+            font-family: 'Rozha One', serif; 
+            color: var(--primary); 
+            line-height: 1.3;
+        }
+
+        /* --- 2. LAYOUT --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        section { padding: 90px 0; position: relative; }
+        
+        .reveal-up { opacity: 0; transform: translateY(50px); transition: var(--transition); }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+        /* --- 3. NAVIGATION --- */
+        nav {
+            position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+            width: 95%; max-width: 700px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 12px 30px; 
+            border-radius: 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            border: 1px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        nav .logo { font-weight: 700; color: var(--primary); font-size: 1.2rem; }
+        nav .links { display: flex; gap: 20px; }
+        nav a { 
+            text-decoration: none; color: var(--text-main); font-size: 1rem; font-weight: 600; 
+            transition: 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+
+        /* --- 4. HERO SECTION --- */
+        #home {
+            min-height: 95vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-badge {
+            background: var(--accent); color: var(--primary-dark);
+            padding: 5px 15px; border-radius: 20px; font-weight: bold;
+            font-size: 0.9rem; display: inline-block; margin-bottom: 20px;
+        }
+
+        .student-card {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+            background: white; padding: 30px; border-radius: 15px;
+            box-shadow: var(--shadow); border-top: 4px solid var(--primary);
+            max-width: 550px; margin: 40px auto 0; text-align: left;
+        }
+        
+        .st-item label { display: block; font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;}
+        .st-item span { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+
+        /* --- 5. CERTIFICATE --- */
+        .paper-card {
+            background: #fff; 
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.08);
+            max-width: 800px; margin: 0 auto;
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+        .paper-card::after {
+            content: ''; position: absolute; inset: 5px; 
+            border: 1px dashed var(--accent); pointer-events: none;
+        }
+        .signature-block {
+            display: flex; justify-content: space-between; margin-top: 60px;
+        }
+
+        /* --- 6. AUTHOR --- */
+        .author-box {
+            display: flex; gap: 40px; align-items: center; flex-wrap: wrap;
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        .author-img {
+            width: 280px; height: 350px; flex-shrink: 0;
+            border-radius: 10px; overflow: hidden;
+            border: 5px solid var(--accent);
+            box-shadow: 10px 10px 0 var(--primary);
+        }
+        .author-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- 7. GALLERY --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px;
+        }
+        .file-page {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s; cursor: pointer;
+            border: 1px solid #eee; position: relative;
+        }
+        .file-page:hover { transform: translateY(-8px); border-color: var(--accent); }
+        .file-page img { width: 100%; height: 320px; object-fit: cover; }
+        
+        .page-info {
+            padding: 10px; display: flex; justify-content: space-between; align-items: center;
+            background: white; border-top: 1px solid #eee;
+        }
+        .page-num { background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;}
+
+        /* --- 8. FOOTER --- */
+        footer {
+            background: var(--primary); color: #ffebcd; padding: 50px 0; text-align: center; margin-top: 80px;
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+        }
+        .lightbox.active { display: flex; animation: fadeIn 0.3s; }
+        .lightbox img { max-height: 90vh; max-width: 95vw; border: 4px solid white; border-radius: 5px;}
+        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; }
+
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 10px; padding: 15px; border-radius: 20px; }
+            .author-box { text-align: center; justify-content: center; }
+            .hero-content h1 { font-size: 3rem; }
+            .student-card { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">तनीषा.</div>
+        <div class="links">
+            <a href="#home">मुखपृष्ठ</a>
+            <a href="#certificate">प्रमाण पत्र</a>
+            <a href="#author">लेखक</a>
+            <a href="#gallery">मेरी फाइल</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="container reveal-up">
+            <div class="hero-badge">सत्र २०२५-२६</div>
+            <h1>ल्हासा की ओर</h1>
+            <p style="font-size:1.2rem; color:var(--text-light); max-width:600px; margin:0 auto;">
+                राहुल सांकृत्यायन द्वारा रचित एक अविस्मरणीय और साहसिक यात्रा वृत्तांत।
+            </p>
+
+            <div class="student-card">
+                <div class="st-item"><label>छात्रा का नाम</label><span>तनीषा कुमारी</span></div>
+                <div class="st-item"><label>कक्षा एवं विभाग</label><span>९ (IX) - 'डी'</span></div>
+                <div class="st-item"><label>अनुक्रमांक</label><span>४० (40)</span></div>
+                <div class="st-item"><label>विषय</label><span>हिंदी (ब)</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificate">
+        <div class="container reveal-up">
+            <h2 style="text-align:center; margin-bottom:40px;">प्रमाण पत्र</h2>
+            <div class="paper-card">
+                <p style="font-size:1.2rem; text-align:justify; line-height:2;">
+                    यह प्रमाणित किया जाता है कि छात्रा <strong>तनीषा कुमारी</strong> (कक्षा ९ 'डी', अनुक्रमांक ४०) ने मेरे निर्देशन में हिंदी पाठ्यपुस्तक के पाठ <em>'ल्हासा की ओर'</em> पर आधारित यह परियोजना कार्य सफलतापूर्वक पूर्ण किया है।
+                    <br><br>
+                    इन्होंने इस परियोजना को तैयार करने में अपनी पूर्ण निष्ठा और रचनात्मकता का प्रदर्शन किया है। यह कार्य विद्यालय के दिशा-निर्देशों के अनुरूप है।
+                </p>
+                <div class="signature-block">
+                    <div style="text-align:center;">
+                        <strong>पूजा सिन्हा</strong><br>
+                        <span style="font-size:0.9rem; color:gray;">(विषय शिक्षिका)</span>
+                    </div>
+                    <div style="text-align:center;">
+                        <strong>हस्ताक्षर</strong><br>
+                        <span style="font-size:0.9rem; color:gray;">(बाह्य परीक्षक)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="author">
+        <div class="container reveal-up">
+            <h2 style="text-align:center; margin-bottom:40px;">लेखक परिचय</h2>
+            <div class="author-box">
+                <div class="author-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Rahul_Sankrityayan.jpg" alt="राहुल सांकृत्यायन">
+                </div>
+                <div style="flex:1;">
+                    <h3 style="font-size:2.5rem; margin-bottom:10px;">राहुल सांकृत्यायन</h3>
+                    <p style="color:var(--primary); font-weight:bold; margin-bottom:20px;">(महापंडित एवं यात्रा वृत्तांत के जनक)</p>
+                    
+                    <p style="margin-bottom:15px;">
+                        <strong>जन्म:</strong> ९ अप्रैल १८९३ (आजमगढ़, उत्तर प्रदेश)<br>
+                        <strong>मृत्यु:</strong> १४ अप्रैल १९६३
+                    </p>
+                    <p>
+                        राहुल सांकृत्यायन जी को हिंदी साहित्य में 'महापंडित' की उपाधि से सम्मानित किया गया है। 
+                        'ल्हासा की ओर' उनकी प्रथम तिब्बत यात्रा का वर्णन है जो उन्होंने १९२९-३० में नेपाल के रास्ते की थी। 
+                        उस समय भारतीयों को तिब्बत यात्रा की अनुमति नहीं थी, इसलिए उन्होंने यह यात्रा एक 
+                        भिक्षमंगे के वेश में की थी।
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" style="background:white;">
+        <div class="container">
+            <div class="reveal-up" style="text-align:center; margin-bottom:50px;">
+                <h2>परियोजना फाइल</h2>
+                <p>सभी पन्ने क्रमानुसार (Serial Wise)</p>
+            </div>
+
+            <div class="gallery-grid reveal-up">
+                <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+1" alt="Cover">
+                    <div class="page-info"><span>१. मुखपृष्ठ</span><span class="page-num">01</span></div>
+                </div>
+                <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+2" alt="Cert">
+                    <div class="page-info"><span>२. प्रमाण पत्र</span><span class="page-num">02</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+3" alt="Index">
+                    <div class="page-info"><span>३. विषय प्रवेश</span><span class="page-num">03</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+4" alt="Author">
+                    <div class="page-info"><span>४. लेखक परिचय</span><span class="page-num">04</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+5" alt="Page 5">
+                    <div class="page-info"><span>५. सामाजिक स्थिति</span><span class="page-num">05</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+6" alt="Page 6">
+                    <div class="page-info"><span>६. सांस्कृतिक जीवन</span><span class="page-num">06</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+7" alt="Page 7">
+                    <div class="page-info"><span>७. भौगोलिक स्थिति</span><span class="page-num">07</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+8" alt="Page 8">
+                    <div class="page-info"><span>८. सारांश (भाग १)</span><span class="page-num">08</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+9" alt="Page 9">
+                    <div class="page-info"><span>९. सारांश (भाग २)</span><span class="page-num">09</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+10" alt="Map">
+                    <div class="page-info"><span>१०. तिब्बत का नक्शा</span><span class="page-num">10</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+11" alt="Conclusion">
+                    <div class="page-info"><span>११. निष्कर्ष</span><span class="page-num">11</span></div>
+                </div>
+                 <div class="file-page">
+                    <img src="https://placehold.co/400x500/800000/FFF?text=Page+12" alt="Biblio">
+                    <div class="page-info"><span>१२. ग्रंथ सूची</span><span class="page-num">12</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h3>धन्यवाद</h3>
+            <p style="margin-top:20px; font-size:0.9rem;">
+                © २०२६ | प्रस्तुति: तनीषा कुमारी (कक्षा ९-डी)
+            </p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-btn">&times;</span>
+        <img src="" id="lb-img">
+    </div>
+
+    <script>
+        // एनीमेशन (Scroll Reveal)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+        // फोटो बड़ा करने का कोड (Lightbox)
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        document.querySelectorAll('.file-page img').forEach(img => {
+            img.addEventListener('click', () => {
+                lbImg.src = img.src;
+                lb.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Scroll lock
+            });
+        });
+
+        function closeLb() {
+            lb.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Scroll unlock
+        }
+
+        closeBtn.addEventListener('click', closeLb);
+        lb.addEventListener('click', (e) => { if(e.target === lb) closeLb(); });
+    </script>
+</body>
+</html>
