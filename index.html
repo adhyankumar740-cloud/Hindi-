@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hindi Project - Lhasa Ki Ore - Tanisha Kumari">
+    <title>हिंदी परियोजना | ल्हासा की ओर</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Yatra+One&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- 1. VARIABLES & THEME --- */
+        :root {
+            /* प्रोजेक्ट फाइल के पिंक कवर और अर्थी टोन का मिक्स */
+            --primary: #C2185B; /* Deep Pink/Red from cover */
+            --primary-dark: #880E4F;
+            --accent: #FFC107; /* Gold/Yellow highlights */
+            --text-main: #2C3E50;
+            --text-light: #546E7A;
+            --paper-bg: #fffdf7; /* Creamy paper look */
+            --line-color: #a4b0be; /* Notebook line color */
+            --shadow: 0 10px 30px rgba(194, 24, 91, 0.15);
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fdf5f8; /* Very light pink background */
+            background-image: radial-gradient(#e6c8d3 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-main);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3 { font-family: 'Yatra One', system-ui; color: var(--primary-dark); letter-spacing: 1px; }
+
+        /* --- 2. LAYOUT UTILITIES --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; position: relative; }
+        
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- 3. NOTEBOOK PAPER EFFECT CARD --- */
+        .paper-card {
+            background: var(--paper-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            position: relative;
+            border-left: 6px solid var(--primary);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        /* Lined Paper Effect */
+        .lined-paper {
+            background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
+            background-size: 100% 2rem; /* Matches line-height */
+            line-height: 2rem;
+        }
+        .paper-card::before {
+            content: ''; position: absolute; top: 0; right: 0; 
+            border-width: 0 40px 40px 0; border-style: solid; 
+            border-color: #eee #fff; box-shadow: -5px 5px 5px rgba(0,0,0,0.05);
+        }
+
+        /* --- 4. HERO SECTION --- */
+        #home {
+            min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center;
+            flex-direction: column; padding-top: 100px;
+        }
+        .hero-title { font-size: 4rem; margin-bottom: 10px; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .hero-subtitle { font-size: 1.5rem; color: var(--text-light); margin-bottom: 40px; }
+        
+        .student-badge {
+            background: white; padding: 25px 40px; border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid var(--primary);
+            display: inline-flex; gap: 30px; flex-wrap: wrap; justify-content: center;
+        }
+        .badge-item strong { display: block; color: var(--primary); font-size: 1.2rem; }
+        .badge-item span { font-size: 0.9rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- 5. CERTIFICATE (Praman Patra) --- */
+        .certificate-box {
+            text-align: center; border: 3px double var(--primary); padding: 40px;
+            background: #fff; margin: 40px auto; max-width: 800px;
+        }
+        .sign-area { display: flex; justify-content: space-between; margin-top: 60px; padding: 0 50px; }
+        .sign-line { border-top: 2px solid #333; width: 150px; padding-top: 10px; font-weight: 600; }
+
+        /* --- 6. INDEX GRID --- */
+        .index-list {
+            list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
+        }
+        .index-item {
+            background: white; padding: 20px; border-radius: 10px; border-bottom: 3px solid var(--primary);
+            display: flex; align-items: center; gap: 15px; font-weight: 600; font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        .index-item:hover { transform: translateX(10px); background: var(--primary); color: white; }
+        .idx-num { background: var(--accent); color: #000; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-family: 'Yatra One'; }
+
+        /* --- 7. CONTENT STYLING --- */
+        .topic-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 10px; }
+        .content-points li { margin-bottom: 15px; padding-left: 20px; position: relative; list-style: none; }
+        .content-points li::before {
+            content: '🌸'; position: absolute; left: -5px; top: 2px; font-size: 1rem;
+        }
+
+        /* --- 8. GALLERY (13 IMAGES) --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;
+        }
+        .gallery-item {
+            height: 280px; border-radius: 10px; overflow: hidden; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; background: #eee;
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-caption {
+            position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7);
+            color: white; padding: 8px; text-align: center; font-size: 0.9rem;
+        }
+
+        /* --- 9. NAV --- */
+        nav {
+            position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px); padding: 15px 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav .logo { font-size: 1.5rem; color: var(--primary); font-family: 'Yatra One'; text-decoration: none; }
+        nav ul { display: flex; gap: 25px; list-style: none; }
+        nav a { text-decoration: none; color: var(--text-main); font-weight: 500; }
+        nav a:hover { color: var(--primary); }
+
+        /* --- LIGHTBOX --- */
+        .lightbox {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000;
+            display: none; justify-content: center; align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-height: 90vh; max-width: 95vw; border: 2px solid white; }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            nav ul { display: none; } /* Hide menu on mobile for simplicity */
+            .sign-area { flex-direction: column; gap: 30px; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">परियोजना कार्य</a>
+            <ul>
+                <li><a href="#certificate">प्रमाण पत्र</a></li>
+                <li><a href="#author">लेखक परिचय</a></li>
+                <li><a href="#social">सामाजिक</a></li>
+                <li><a href="#geo">भौगोलिक</a></li>
+                <li><a href="#gallery">चित्र दीर्घा</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="container reveal">
+            <p style="font-size: 1.5rem; color: var(--primary); font-family: 'Yatra One';">हिन्दी परियोजना कार्य</p>
+            <h1 class="hero-title">ल्हासा की ओर</h1>
+            <p class="hero-subtitle">राहुल सांकृत्यायन द्वारा रचित यात्रा वृत्तांत</p>
+
+            <div class="student-badge">
+                <div class="badge-item">
+                    <span>Name</span>
+                    <strong>Tanisha Kumari</strong>
+                </div>
+                <div class="badge-item">
+                    <span>Class</span>
+                    <strong>IX - 'D'</strong>
+                </div>
+                <div class="badge-item">
+                    <span>Roll No</span>
+                    <strong>40</strong>
+                </div>
+                <div class="badge-item">
+                    <span>Subject</span>
+                    <strong>Hindi (B)</strong>
+                </div>
+            </div>
+            
+            <div style="margin-top: 50px;">
+                <i class="ph ph-arrow-down" style="font-size: 2rem; color: var(--primary); animation: bounce 2s infinite;"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificate">
+        <div class="container reveal">
+            <h2 style="text-align: center; margin-bottom: 20px;">प्रमाण पत्र</h2>
+            <div class="paper-card certificate-box">
+                <p class="lined-paper" style="font-size: 1.2rem;">
+                    मेरे द्वारा यह प्रमाणित किया जाता है कि मैं <strong>तनीषा कुमारी</strong>, कक्षा 9 'डी' की छात्रा हूँ, जिसने यह परियोजना कार्य तैयार किया है।
+                    <br><br>
+                    इस परियोजना कार्य को करने में मैंने बहुत रूचि दिखाई है। मैंने यह परियोजना कार्य अपनी हिन्दी शिक्षिका <strong>पूजा सिन्हा</strong> के मार्गदर्शन में परियोजना कार्य "ल्हासा की ओर" को सफलतापूर्वक पूरा किया है।
+                </p>
+                <div class="sign-area">
+                    <div class="sign-line">शिक्षिका हस्ताक्षर</div>
+                    <div class="sign-line">टिप्पणी</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="index" style="background: rgba(255,255,255,0.5);">
+        <div class="container reveal">
+            <h2 class="topic-header">अनुक्रमणिका</h2>
+            <ul class="index-list">
+                <li class="index-item"><span class="idx-num">1</span> लेखक परिचय</li>
+                <li class="index-item"><span class="idx-num">2</span> तिब्बत की सामाजिक स्थिति</li>
+                <li class="index-item"><span class="idx-num">3</span> तिब्बत की सांस्कृतिक स्थिति</li>
+                <li class="index-item"><span class="idx-num">4</span> तिब्बत की भौगोलिक स्थिति</li>
+                <li class="index-item"><span class="idx-num">5</span> सारांश</li>
+                <li class="index-item"><span class="idx-num">6</span> निष्कर्ष</li>
+                <li class="index-item"><span class="idx-num">7</span> ग्रंथ सूची</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="content-body">
+        <div class="container">
+            
+            <div class="paper-card reveal" id="author">
+                <h2 class="topic-header">लेखक परिचय</h2>
+                <div class="lined-paper">
+                    <p><strong>नाम:</strong> राहुल सांकृत्यायन (मूल नाम: केदारनाथ पांडेय)</p>
+                    <p><strong>जन्म:</strong> सन 1893, ग्राम पंधा, जिला आजमगढ़ (उत्तर प्रदेश)।</p>
+                    <p><strong>मृत्यु:</strong> सन 1963 (दार्जिलिंग)।</p>
+                    <p><strong>विशेष:</strong> इन्हें 'महापंडित' की उपाधि दी गयी है। ये हिंदी के प्रमुख साहित्यकार थे। सन 1930 में उन्होंने श्रीलंका जाकर बौद्ध धर्म ग्रहण कर लिया।</p>
+                    <p><strong>यात्रा:</strong> उन्होंने तिब्बत से लेकर श्रीलंका तक भ्रमण किया। यह पाठ उनकी प्रथम तिब्बत यात्रा (1929-30) का वर्णन है जो उन्होंने नेपाल के रास्ते की थी।</p>
+                </div>
+            </div>
+
+            <div class="paper-card reveal" id="social">
+                <h2 class="topic-header">सामाजिक व्यवस्था</h2>
+                <ul class="content-points lined-paper">
+                    <li>उस समय तिब्बती समाज में जाति-पाति, छुआछूत जैसी कुप्रथाएं नहीं थीं।</li>
+                    <li>वहाँ की औरतें पर्दा (Purdah System) नहीं करती थीं।</li>
+                    <li>अपरिचित लोग भी घर के अंदर जा सकते थे और घर की महिलाएं (सासु या बहु) उनके लिए चाय बना देती थीं।</li>
+                    <li>वहाँ पर हथियार का कानून नहीं था, इसलिए लोग लाठी की तरह पिस्तौल और बंदूक लेकर घूमते थे।</li>
+                    <li>निर्जन स्थानों पर डाकुओं का भय बना रहता था।</li>
+                </ul>
+            </div>
+
+            <div class="paper-card reveal" id="cultural">
+                <h2 class="topic-header">सांस्कृतिक स्थिति</h2>
+                <ul class="content-points lined-paper">
+                    <li>तिब्बत के लोग 'चूबा' नाम के कपड़े पहनते हैं।</li>
+                    <li>वहाँ चाय बनाने की अलग परंपरा है (मक्खन और सोडा-नमक वाली चाय)।</li>
+                    <li>'थुकपा' और 'मोमो' वहाँ के लोकप्रिय व्यंजन हैं।</li>
+                    <li>बौद्ध धर्म का बहुत प्रभाव है। हाथ में 'मेनी' (Prayer Wheel) घुमाना पुण्य माना जाता है।</li>
+                    <li>वहाँ की जमीन जागीरदारों में बंटी हुई है जिसका ज्यादा हिस्सा मठों (विहारों) के हाथ में है।</li>
+                </ul>
+            </div>
+
+            <div class="paper-card reveal" id="geo">
+                <h2 class="topic-header">भौगोलिक स्थिति</h2>
+                <ul class="content-points lined-paper">
+                    <li>तिब्बत एक पहाड़ी प्रदेश है जो समुद्र तल से 16-17 हजार फीट ऊँचा है।</li>
+                    <li>'डाँड़े' तिब्बत की सबसे खतरनाक जगहें हैं।</li>
+                    <li>रास्ते बहुत उबड़-खाबड़ और दुर्गम हैं।</li>
+                    <li>वहाँ की जलवायु विचित्र है - धूप में मुँह करो तो गर्मी, और पीठ पीछे छाया हो तो बर्फ जैसी सर्दी लगती है।</li>
+                </ul>
+            </div>
+
+            <div class="paper-card reveal" style="border-left-color: var(--accent);">
+                <h2 class="topic-header">निष्कर्ष</h2>
+                <p class="lined-paper">
+                    'ल्हासा की ओर' पाठ एक यात्रा वृत्तांत है। इसमें राहुल जी की प्रथम तिब्बत यात्रा का वर्णन है। लेखक ने उस समय के तिब्बत के जन-जीवन, संस्कृति और समाज का बहुत ही सुंदर वर्णन किया है। लेखक के रास्ते में कई कठिनाइयाँ आईं लेकिन उन्होंने हार नहीं मानी। यह पाठ हमें घूमने और नई संस्कृतियों को जानने की प्रेरणा देता है।
+                </p>
+            </div>
+
+            <div class="paper-card reveal" id="biblio">
+                <h2 class="topic-header">ग्रंथ सूची</h2>
+                <p>इस प्रोजेक्ट को बनाने के लिए मैंने निम्न स्रोतों की मदद ली है:</p>
+                <ul class="content-points">
+                    <li>पाठ्य पुस्तक: क्षितिज (भाग-1)</li>
+                    <li>www.google.com</li>
+                    <li>www.youtube.com (Summary Videos)</li>
+                    <li>www.wikipedia.com</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="gallery" style="background: #fff;">
+        <div class="container">
+            <h2 class="topic-header reveal">मेरी परियोजना फाइल (चित्र)</h2>
+            <p style="text-align: center; margin-bottom: 30px;" class="reveal">प्रोजेक्ट के 13 पन्ने क्रमानुसार:</p>
+            
+            <div class="gallery-grid reveal">
+                <div class="gallery-item"><img src="./images/image1.jpg" alt="Page 1"><div class="gallery-caption">Cover Page</div></div>
+                <div class="gallery-item"><img src="./images/image2.jpg" alt="Page 2"><div class="gallery-caption">Praman Patra</div></div>
+                <div class="gallery-item"><img src="./images/image3.jpg" alt="Page 3"><div class="gallery-caption">Acknowledgement</div></div>
+                <div class="gallery-item"><img src="./images/image4.jpg" alt="Page 4"><div class="gallery-caption">Index</div></div>
+                <div class="gallery-item"><img src="./images/image5.jpg" alt="Page 5"><div class="gallery-caption">Author Intro</div></div>
+                <div class="gallery-item"><img src="./images/image6.jpg" alt="Page 6"><div class="gallery-caption">Social Structure</div></div>
+                <div class="gallery-item"><img src="./images/image7.jpg" alt="Page 7"><div class="gallery-caption">Cultural Structure</div></div>
+                <div class="gallery-item"><img src="./images/image8.jpg" alt="Page 8"><div class="gallery-caption">Geographical Structure</div></div>
+                <div class="gallery-item"><img src="./images/image9.jpg" alt="Page 9"><div class="gallery-caption">Art/Map</div></div>
+                <div class="gallery-item"><img src="./images/image10.jpg" alt="Page 10"><div class="gallery-caption">Summary (1)</div></div>
+                <div class="gallery-item"><img src="./images/image11.jpg" alt="Page 11"><div class="gallery-caption">Summary (2)</div></div>
+                <div class="gallery-item"><img src="./images/image12.jpg" alt="Page 12"><div class="gallery-caption">Conclusion</div></div>
+                <div class="gallery-item"><img src="./images/image13.jpg" alt="Page 13"><div class="gallery-caption">Bibliography</div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px; color: var(--text-light);">
+            <p>© 2026 Tanisha Kumari | Class IX-D | Hindi Project</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-btn">&times;</span>
+        <img src="" id="lightbox-img">
+    </div>
+
+    <script>
+        // Scroll Animation
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if(el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        });
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lbImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+        
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) lightbox.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
